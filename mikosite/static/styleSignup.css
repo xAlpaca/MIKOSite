@@ -1,0 +1,40 @@
+.required:after {
+    content:" *";
+    color: red;
+}
+
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 400px; /* Increased width for additional fields */
+    margin: 0 auto;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+input, select, button {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+/* Custom styling for the "show password" checkbox */
+#show-password {
+    margin-left: 5px;
+}
+

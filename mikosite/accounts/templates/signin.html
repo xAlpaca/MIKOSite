@@ -1,0 +1,33 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Login Form</title>
+    <link rel="stylesheet" href="{% static 'styleSignin.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Logowanie</h1>
+        <form action="#" method="post">
+            {% csrf_token %}
+            <div class="input-field">
+                <label for="username">Nazwa użytkownika:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-field">
+                <label for="password">Hasło:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <p style="color: red">{{ custom_message }}</p>
+            <button type="login">Zaloguj</button>
+            <a href="#">Forgot password?</a>
+        </form>
+    </div>
+</body>
+</html>
+
+

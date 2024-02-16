@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Page</title>
+    <link rel="stylesheet" href="{% static 'aboutStyle.css' %}">
+</head>
+<body>
+
+<header>
+    <h1>Welcome to My Website</h1>
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section>
+    <h2>About Us</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eleifend lorem nec lacus ultrices, eget fermentum dui pulvinar.</p>
+</section>
+
+<section>
+    <h2>Contact Us</h2>
+    <p>Email: info@example.com</p>
+    <p>Phone: +1 234 567 890</p>
+</section>
+
+<footer>
+    <p>&copy; 2022 My Website. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

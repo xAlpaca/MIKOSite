@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'addproblemStyle.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+    <script src ="{% static 'addproblemScript.js' %}"></script>
+    
+    <title>Create a Problem</title>
+    
+</head>
+<body>
+
+<h2>Create a Problem</h2>
+
+
+<label id="preview" style="font-weight: normal"></label>
+
+
+<form action="/bazahintow/addproblem/" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div>
+        <label for="latex_code">Latex Code:</label>
+        <textarea id="latex_code" name="latex_code" rows="10" cols="100" placeholder=
+        "\documentclass{article}
+\begin{document}
+\end{document}" required></textarea>
+    </div>
+    <div>
+        <label for="source">Source:</label>
+        <input type="text" id="source" name="source">
+    </div>
+    <div>
+        <label for="image">Image:</label>
+        <input type="file" id="image" name="image">
+    </div>
+    <div>
+        <label for="difficulty">Difficulty (1-10):</label>
+        <input type="number" id="difficulty" name="difficulty" min="1" max="10" required>
+    </div>
+    <div>
+        <label for="genre">Genre:</label>
+        <select id="genre" name="genre" required>
+            <option value="geometry">Geometry</option>
+            <option value="combinatorics">Combinatorics</option>
+            <option value="numbertheory">Number Theory</option>
+            <option value="algebra">Algebra</option>
+            <option value="other">Other</option>
+        </select>
+    </div>
+    <input type="submit" value="Submit">
+</form>
+
+{% if custom_message %}<p style="color: red">{{ custom_message }}</p>{% endif %}
+
+</body>
+</html>

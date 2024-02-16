@@ -1,0 +1,62 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome!</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <script src="{% static 'script.js' %}"></script>
+</head>
+<body>
+    <header>
+        <img src="{% static 'logo.png' %}" alt="Logo" class="logo">
+        <li><a href="/signup/">Rejestracja</a></li>
+        <li><a href="/signin/">Logowanie</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="/profile/">Profil</a></li>
+        {% endif %}
+        <div class="dropdown">
+            <button class="dropdown-button">Info</button>
+            <ul class="dropdown-content">
+                
+                {% comment %} <li><a href="/signin/">O nas</a></li> {% endcomment %}
+                {% comment %} <li><a href="{% url '' %}">Zadania</a></li> {% endcomment %}
+            </ul>
+        </div>
+    </header>
+    <main>
+        {% for post in posts %}
+<section class="post-section">
+    <h2>{{ post.title }}</h2>
+    {% if post.subtitle %}
+    <h3>{{ post.subtitle }}</h3>
+    {% endif %}
+    <p>Authors: 
+        {% for author in post.authors.all %}
+        {{ author.username }}
+        {% if not forloop.last %}, {% endif %}
+        {% endfor %}
+    </p>
+    {% if post.file %}
+    <p><a href="{{ post.file.url }}">Download File</a></p>
+    {% endif %}
+    {% if post.images.all %}
+    <div class="image-gallery">
+        {% for image in post.images.all %}
+        <img src="{{ image.image.url }}" alt="Image">
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% if post.text_field_1 %}
+    <p>{{ post.text_field_1 }}</p>
+    {% endif %}
+    {% if post.text_field_2 %}
+    <p>{{ post.text_field_2 }}</p>
+    {% endif %}
+</section>
+{% endfor %}
+    </main>
+</body>
+</html>
