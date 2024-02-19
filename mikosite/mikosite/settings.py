@@ -44,9 +44,12 @@ INSTALLED_APPS = [
     "accounts",
     "mainSite",
     "hintBase",
-    "django_tex",
-    
+    "taggit",
+    "formtools"
 ]
+
+
+TAGGIT_CASE_INSENSITIVE = True
 
 
 TEMPLATES = [

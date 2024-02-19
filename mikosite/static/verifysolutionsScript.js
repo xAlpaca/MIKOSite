@@ -1,17 +1,10 @@
 window.addEventListener('DOMContentLoaded', () => {
-    var latexCodeTextarea = document.getElementById('latex_code');
-    
-    latexCodeTextarea.addEventListener('input', function(event) {
-        var equationLabel = document.getElementById('preview');
+    const labels = document.querySelectorAll('label');
 
-        
-        var latexCode = event.target.value;
-
-        equationLabel.innerHTML =  latexCode
-        try {
-            renderMathInElement(document.getElementById('preview'), {
+    try {
+        labels.forEach((label) => {
+            renderMathInElement(label, {
                 delimiters: [
-                    
                     {left: "$$", right: "$$", display: true},
                     {left: "$", right: "$", display: false},
                     {left: "\\(", right: "\\)", display: false},
@@ -24,9 +17,9 @@ window.addEventListener('DOMContentLoaded', () => {
                 ],
                 throwOnError: false
             });
-        }
-        catch (error) {
-        }
-    });
+        });
+    } catch (error) {
+        console.error('Error rendering LaTeX:', error);
+    }
 });
-    
+

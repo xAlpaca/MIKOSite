@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ProblemHint',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('hintId', models.AutoField(primary_key=True, serialize=False)),
                 ('verified', models.BooleanField(default=False)),
                 ('hints', models.TextField()),
                 ('latex_solution', models.TextField()),

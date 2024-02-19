@@ -35,7 +35,7 @@ button:hover {
 
 .container {
     padding: 20px;
-    display: flex;
+    /* display: flex; */
     flex-wrap: wrap;
     justify-content: center;
 }

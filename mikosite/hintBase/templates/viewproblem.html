@@ -1,5 +1,6 @@
 {% load static %}
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,13 +21,17 @@
     <div>
         <strong>Problem ID:</strong> {{ problem.problem_id }}<br>
         <strong>Author:</strong> 
-        {% if proben.author %} 
+        {% if proben.author != "" %} 
         {{ problem.author.username }}
         {% endif %}
         <br>
         <strong>Source:</strong> {{ problem.source }}<br>
         <strong>Difficulty:</strong> {{ problem.difficulty }}<br>
-        <strong>Genre:</strong> {{ problem.get_genre_display }}<br>
+        <p><strong>Genre:</strong> 
+            {% for tag_name in problem.tags.names %}
+                <span>{{ tag_name }},</span>
+            {% endfor %}
+        </p>
         {% if problem.image %}
             <img src="{{ problem.image.url }}" alt="Problem Image">
         {% endif %}
@@ -37,7 +42,30 @@
             {{ problem.latex_code }}
         </div>
     </div>
+
+    {% if user.is_authenticated %}
+    <a href="./add_solution">Dodaj rozwiązanie</a>
+        {% endif %}
     
+
+    <div>
+    {% for hintIntance in hinty %}
+        <p> Autor rozwiązania/(rozwiązanie dodał):{{ hintIntance.author.username }} </p>
+        
+        <p> Podpowiedźi: </p>
+        {% with hintIntance.hints|linebreaks as splittedhints %}
+            <label>{{ splittedhints }}</label>
+        {% endwith %}
+
+        <p> Pełne rozwiązanie: </p>
+        <label> {{hintIntance.latex_solution }} </label>
+
+
+    
+    {% endfor %}
+    </div>
+
+
 </body>
 </html>
  
