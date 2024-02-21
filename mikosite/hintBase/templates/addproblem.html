@@ -23,41 +23,106 @@
 
 <label id="preview" style="font-weight: normal"></label>
 
+{% if confirm_key == "False" %}
 
-<form action="/bazahintow/addproblem/" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div>
-        <label for="latex_code">Latex Code:</label>
-        <textarea id="latex_code" name="latex_code" rows="10" cols="100" placeholder=
-        "\documentclass{article}
-\begin{document}
-\end{document}" required></textarea>
-    </div>
-    <div>
-        <label for="source">Source:</label>
-        <input type="text" id="source" name="source">
-    </div>
-    <div>
-        <label for="image">Image:</label>
-        <input type="file" id="image" name="image">
-    </div>
-    <div>
-        <label for="difficulty">Difficulty (1-10):</label>
-        <input type="number" id="difficulty" name="difficulty" min="1" max="10" required>
-    </div>
-    <div>
-        <label for="tags">Typ zadania:</label><br>
-        <select name="selected_tags" id="tags" multiple>
-            {% for tag in tags %}
-            <option value="{{ tag }}">{{ tag }}</option>
-            {% endfor %}
-        </select><br><br>
-    </div>
-    
-    <input type="submit" value="Submit">
-</form>
+    <form action="/bazahintow/addproblem/" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <label for="latex_code">Latex Code:</label>
+            <textarea id="latex_code" name="latex_code" rows="10" cols="100" placeholder=
+            "$\sqrt{\frac{a^N}{b^{N-1}}}}}" required></textarea>
+        </div>
+        <div>
+            <label for="source">Source:</label>
+            <input type="text" id="source" name="source">
+        </div>
+        <div>
+            <label for="image">Image:</label>
+            <input type="file" id="image" name="image">
+        </div>
+        <div>
+            <label for="difficulty">Difficulty (1-10):</label>
+            <input type="number" id="difficulty" name="difficulty" min="1" max="10" required>
+        </div>
+        <div>
+            <label for="tags">Typ zadania:</label><br>
+            <select name="selected_tags" id="tags" multiple>
+                {% for tag in tags %}
+                <option value="{{ tag }}">{{ tag }}</option>
+                {% endfor %}
+            </select><br><br>
+        </div>
+        
+        <input type="submit" value="Submit">
+    </form>
 
-{% if custom_message %}<p style="color: red">{{ custom_message }}</p>{% endif %}
+    {% if custom_message %}<p style="color: red">{{ custom_message }}</p>{% endif %}
+{% else %}
 
+    <form action="/bazahintow/addproblem/" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <label style="display:None" name="confirm_key">True</label>
+            <label for="latex_code">Latex Code:</label>
+            <textarea id="latex_code" name="latex_code" rows="10" cols="100" placeholder=
+            "\documentclass{article}
+    \begin{document}
+    \end{document}" required>{{ problem.latex_code }}</textarea>
+        </div>
+        <div>
+            <label for="source">Source:</label>
+            <input type="text" id="source" name="source" value="{{ problem.source }}">
+        </div>
+        <div>
+            <label for="image">Image:</label>
+            <input type="file" id="image" name="image">
+        </div>
+        <div>
+            <label for="difficulty">Difficulty (1-10):</label>
+            <input type="number" id="difficulty" name="difficulty" min="1" max="10" value="{{ problem.difficulty }}" required>
+        </div>
+        <div>
+            <label for="tags">Typ zadania:</label><br>
+            <select name="selected_tags" id="tags" multiple>
+                {% for tag in tags %}
+                <option value="{{ tag }}">{{ tag }}</option>
+                {% endfor %}
+            </select><br><br>
+        </div>
+        
+        <input type="submit" value="Dodaj" name="confirm_key">
+        <input type="submit" value="Usuń" name="confirm_key" style="color: red">
+    </form>
+    {% if custom_message %}<p style="color: red">{{ custom_message }}</p>{% endif %}
+
+    {% for s_problem in similar_problems %}
+        <div>
+            <strong>Problem ID:</strong> {{ s_problem.problem_id }}<br>
+            <strong>Author:</strong> 
+            {% if s_problem.author != "" %} 
+            {{ s_problem.author.username }}
+            {% endif %}
+            <br>
+            <strong>Source:</strong> {{ s_problem.source }}<br>
+            <strong>Difficulty:</strong> {{ s_problem.difficulty }}<br>
+            <p><strong>Genre:</strong> 
+                {% for tag_name in s_problem.tags.names %}
+                    <span>{{ tag_name }},</span>
+                {% endfor %}
+            </p>
+            {% if s_problem.image %}
+                <img src="{{ s_problem.image.url }}" alt="Problem Image">
+            {% endif %}
+        </div>
+        <div>
+            <strong>LaTeX Code:</strong><br>
+            <div id="latex-container">
+                {{ s_problem.latex_code }}
+            </div>
+        </div>
+
+    {% endfor%}
+
+{% endif %}
 </body>
 </html>
