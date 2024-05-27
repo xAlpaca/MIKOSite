@@ -17,15 +17,16 @@ from mainSite.models import Post
 def signup(request):
     
     if request.method == "POST":
-        username = request.POST.get("nickname")
+        username = request.POST.get("username")
         email = request.POST.get("email")
-        password0 = request.POST.get("password0")
-        password1 = request.POST.get("password1")
+        password0 = request.POST.get("password")
+        password1 = request.POST.get("confirmPassword")
         
         name = request.POST.get("name")
         surname = request.POST.get("surname")
         date_of_birth = request.POST.get("date_of_birth")
         region = request.POST.get("region")
+        image = request.POST.get("profile_image")
         
         if User.objects.filter(email=email).exists():
             print("email exists, redirecting to signup")
@@ -40,7 +41,7 @@ def signup(request):
             datetime.datetime.strptime(date_of_birth, '%Y-%m-%d')
         except ValueError:
             # If invalid format, assign "default_date" and add an error message
-            print("Brak/hujowa data essy nie ma")
+            print("Brak/ data essy nie ma")
             date_of_birth = datetime.date.today()
         
         
@@ -70,7 +71,7 @@ def signup(request):
 def signin(request):
     
     if request.user.is_authenticated:
-            return render(request, "signin.html", {"custom_message": f"Jesteś zalogowany {request.user.username}"})
+            return render(request, "signin.html", {"custom_message": f"Jesteś zalogowany {request.user.username}. Musisz się wylogować, aby zalogować się ponownie."})
     
     if request.method == "POST":
         

@@ -1,40 +1,101 @@
-.required:after {
-    content:" *";
-    color: red;
-}
-
 body {
-    font-family: sans-serif;
-    margin: 0;
-    padding: 20px;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #f0f0f0;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    width: 400px; /* Increased width for additional fields */
-    margin: 0 auto;
+header {
+  background-color: #008b8b;
+  padding: 10px 0;
+  color: white;
 }
 
-label {
-    margin-bottom: 5px;
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-input, select, button {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 10px;
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  height: 40px;
+  margin-right: 10px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  margin: 50px auto;
+}
+
+h1 {
+  margin: 0 0 10px;
+}
+
+p {
+  margin: 0 0 20px;
+  color: #666;
+}
+
+.form-group {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.form-group input,
+.form-group select {
+  width: 48%;
+  padding: 10px;
+  margin-right: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-group input[type="file"] {
+  width: 100%;
 }
 
 button {
-    background-color: #4CAF50;
-    color: white;
-    cursor: pointer;
+  width: 100%;
+  padding: 10px;
+  background-color: #00bfff;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-/* Custom styling for the "show password" checkbox */
-#show-password {
-    margin-left: 5px;
+button:hover {
+  background-color: #009acd;
 }
 
+a {
+  color: #00bfff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

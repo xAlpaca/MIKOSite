@@ -38,16 +38,17 @@ def index(request):
                 for problem in all_problems:
                     problemtags = set([tg for tg in problem.tags.names()])
                     tags_to_filter = set(tags_to_filter)
+                    print(tags_to_filter, problemtags)
                     if tags_to_filter.issubset(problemtags):
                         filtered_problems.append(problem)
-                    return render(request, 'index1.html', {"all_problems": filtered_problems,  "user_belongs_to_moderator_group": user_belongs_to_moderator_group, "tags": tags})
+                return render(request, 'index1.html', {"all_problems": filtered_problems,  "user_belongs_to_moderator_group": user_belongs_to_moderator_group, "tags": tags})
 
         
         
     #     filtered_problems = Problem.objects.filter(tags__name__in=request.POST.getlist('tags'))
     return render(request, 'index1.html', {"all_problems": all_problems,  "user_belongs_to_moderator_group": user_belongs_to_moderator_group, "tags": tags})
 
-@login_required(login_url='../signin')
+@login_required(login_url='../../signin')
 def addproblem(request):
     tags = list([tag.name for tag in Tag.objects.all()])
     if request.method == 'POST':
@@ -66,7 +67,7 @@ def addproblem(request):
             author = request.user
         )
         confirm_key = request.POST.get('confirm_key')
-        print(confirm_key)
+        # print(confirm_key)
         if confirm_key == None:
             for tag in selected_tags:
                 if tag not in tags:
@@ -121,7 +122,7 @@ def add_solution(request, problem_id):
     return render(request, 'addsolution.html', {"problem": problemf} )
 
 
-@login_required(login_url='../signin')
+@login_required(login_url='../../signin')
 def verifysolutions(request):
     messages={}
     

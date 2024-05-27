@@ -13,10 +13,9 @@ class Problem(models.Model):
     difficulty = models.PositiveIntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(10)]
     )
-    
+
     tags = TaggableManager()
-    
-    
+
     def __str__(self):
         if self.author is not None:
             return f'Problem by {self.author.username}, problem id: {self.problem_id}'

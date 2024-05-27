@@ -1,54 +1,92 @@
 {% load static %}
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
+    <title>Rejestracja</title>
     <link rel="stylesheet" href="{% static 'styleSignup.css' %}">
 </head>
 <body>
-    <h1>Sign Up</h1>
-    <form action="/signup/" method="post">
-    {% csrf_token %}
-        <label class="required" for="nickname">Nazwa użytkownika:</label>
-        <input type="text" id="nickname" name="nickname">
-        <br>
-        <label class="required" for="email">Adres e-mail:</label>
-        <input type="email" id="email" name="email" required>
-        <br>
-        <label class="required" for="password">Hasło:</label>
-        <input type="password" id="password" name="password0" required>
-        <label for="show-password"><input type="checkbox" id="show-password"> Show password</label>
-        <br>
-        <label class="required" for="password">Powtórz hasło:</label>
-        <input type="password" id="password" name="password1" required>
-        <label for="show-password"><input type="checkbox" id="show-password"> Show password</label>
-        
-        <br>
-        <label class="required" for="name">Imię:</label>
-        <input type="text" id="name" name="name" required>
-        <br>
-        <label class="required" for="surname">Nazwisko:</label>
-        <input type="text" id="surname" name="surname" required>
-        <br>
-    
-        <label class="required" for="region">Województwo:</label>
-        <select id="region" name="region" required>
-            <option value="">Wybeirz z listy:</option>
-            <option value="malopolskie">Małopolskie</option>
-            <option value="mazowieckie">Mazowieckie</option>
-        </select>
-        <br>
-        <label for="date_of_birth">Data urodzenia</label>
-        <input type="date" id="date_of_birth" name="date_of_birth">
-        
-        <br>
-        
-        <p style="color: red">{{ custom_message }}</p>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="image.png" alt="Logo">
+                <span>MIKO</span>
+            </div>
+            <nav>
+                <a href="../">Powrót do strony głównej</a>
+            </nav>
+        </div>
+    </header>
+    <div class="container">
+        <h1>Rejestracja</h1>
+        <p>Utwórz konto aby dodawać zadania oraz rozwiązania do bazy hintów!</p>
+        <form id="registrationForm" method="POST" enctype="multipart/form-data" action="/signup/">
+            {% csrf_token %}
 
+            <div class="form-group">
+                <input type="text" id="name" name="name" placeholder="Imię" required>
+                <input type="text" id="surname" name="surname" placeholder="Nazwisko" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="username" name="username" placeholder="Nazwa użytkownika" required>
+                <input type="email" id="email" name="email" placeholder="Adres e-mail" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" name="password" placeholder="Hasło" required>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Potórz hasło" required>
+            </div>
+            <div class="form-group">
+                <select id="region" name="region">
+                    <option value="">Województwo</option>
+                    <option value="Dolnośląskie">Dolnośląskie</option>
+                    <option value="Kujawsko-Pomorskie">Kujawsko-Pomorskie</option>
+                    <option value="Lubelskie">Lubelskie</option>
+                    <option value="Lubuskie">Lubuskie</option>
+                    <option value="Łódzkie">Łódzkie</option>
+                    <option value="Małopolskie">Małopolskie</option>
+                    <option value="Mazowieckie">Mazowieckie</option>
+                    <option value="Opolskie">Opolskie</option>
+                    <option value="Podkarpackie">Podkarpackie</option>
+                    <option value="Podlaskie">Podlaskie</option>
+                    <option value="Pomorskie">Pomorskie</option>
+                    <option value="Śląskie">Śląskie</option>
+                    <option value="Świętokrzyskie">Świętokrzyskie</option>
+                    <option value="Warmińsko-Mazurskie">Warmińsko-Mazurskie</option>
+                    <option value="Wielkopolskie">Wielkopolskie</option>
+                    <option value="Zachodniopomorskie">Zachodniopomorskie</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="date" id="dateOfBirth" name="date_of_birth" placeholder="Data urodzenia (lub po prostu rok)">
+            </div>
+            <div class="form-group">
+                <label for="profileImage">Zdjęcie profilowe</label>
+                <input type="file" id="profileImage" name="profile_image" accept="image/*">
+            </div>
+            <button type="submit">Wyślij</button>
+        </form>
+        <br>
+        <p>Masz już konto? <a href="../signin/">Zaloguj</a></p>
 
-        <button type="submit">Załóż konto</button>
-    </form>
+     <p style="color: red">{{ custom_message }}</p>
+
+    </div>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+
+    if (password !== confirmPassword) {
+        event.preventDefault();
+        alert('Hasła się nie zgadzają!');
+    }
+});
+s
+    </script>
 </body>
 </html>

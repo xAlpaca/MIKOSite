@@ -23,6 +23,7 @@
 </header>
 
 <div class="container">
+        <button class="back-button" onclick="goBack()">Back</button>
 
     <form method="POST" id= "filter-form" action=''>
         {% csrf_token %}
@@ -46,7 +47,7 @@
         <h2>Problem ID: {{ problem.problem_id }}</h2>
         <p><strong>Genre:</strong> 
             {% for tag_name in problem.tags.names %}
-                <span>{{ tag_name }},</span>
+                <span>{{ tag_name }};</span>
             {% endfor %}
         </p>
         
@@ -60,6 +61,10 @@
     {% endfor %}
 
 </div>
-
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
 </body>
 </html>

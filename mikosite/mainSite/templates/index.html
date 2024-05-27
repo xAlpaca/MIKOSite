@@ -1,102 +1,71 @@
 {% load static %}
 
+
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
+    <title>MIKO</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome!</title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <script src="{% static 'script.js' %}"></script>
 </head>
 <body>
-
-    <header class="site-header">
-        <div class="wrapper site-header__wrapper">
-          <div class="site-header__start">
-            <a href="#" class="brand">MIKO</a>
-            
-          </div>
-          <div class="site-header__middle">
-            <nav class="nav">
-              <button class="nav__toggle" aria-expanded="false" type="button">
-                menu
-              </button>
-              <ul class="nav__wrapper">
-                <li class="nav__item"><a href="/bazahintow/">Baza hintów</a></li>
-                <li class="nav__item"><a href="/about/">O nas</a></li>
-              </ul>
+    <div class="container">
+        <header>
+            <div class="logo">MIKO</div>
+            <nav>
+                <ul>
+                    <li><a href="/bazahintow/">Baza zadań</a></li>
+                    <li><a href="/about/">O nas</a></li>
+                    <li><a href="/signup/">Zaloguj</a></li>
+                </ul>
             </nav>
-          </div>
-          <div class="site-header__end">
-            <ul class="nav__wrapper">
-                <li class="nav__item"><a href="/signin/">Zaloguj</a></li>
-        
-              </ul>
-          </div>
-        </div>
-      </header>
-      <!-- Header End -->
-
-    {% comment %} <header class="header">
-
-
-
-
-
-
-        <div id="logo">
-            <img src="{% static 'logo.png' %}" alt="Logo" class="logo">
-        </div>
-        <div id="navigation">
-
-            <a href="/bazahintow/"><button class="button">Baza hintów</button></a>
-            <a href="/about/"><button class="button">O nas</button></a>
-        </div>
-
-        <div id="profile">
-            
-            {% if user.is_authenticated %}
-            
-                <a href="/profile/"><button class="button"style="margin-right: 10px">Profil</button></a>
-            {% endif %}
-
-        </div>
-    </header> {% endcomment %}
-    <main>
-
-        <section class="blocks">
-        </section>
-        {% for post in posts %}
-            <section class="post-section">
-                <h2>{{ post.title }}</h2>
-                {% if post.subtitle %}
-                <h3>{{ post.subtitle }}</h3>
-                {% endif %}
-                <p>Authors: 
-                    {% for author in post.authors.all %}
-                    {{ author.username }}
-                    {% if not forloop.last %}, {% endif %}
-                    {% endfor %}
-                </p>
-                {% if post.file %}
-                <p><a href="{{ post.file.url }}">Download File</a></p>
-                {% endif %}
-                {% if post.images.all %}
-                <div class="image-gallery">
-                    {% for image in post.images.all %}
-                    <img src="{{ image.image.url }}" alt="Image">
-                    {% endfor %}
+        </header>
+        <main>
+            {% for post in posts %}
+            <section class="welcome">
+                <div class="header">
+                    <h1>{{ post.title }}</h1>
+                    {% if post.subtitle %}
+                        <p>{{ post.subtitle }}</p>
+                    {% endif %}
                 </div>
-                {% endif %}
-                {% if post.text_field_1 %}
-                <p>{{ post.text_field_1 }}</p>
-                {% endif %}
-                {% if post.text_field_2 %}
-                <p>{{ post.text_field_2 }}</p>
-                {% endif %}
+                <div class="content">
+                    <div class="text">
+                        {% if post.text_field_1 %}
+                            <p>{{ post.text_field_1 }}</p>
+                        {% endif %}
+                        {% if post.text_field_2 %}
+                            <p>{{ post.text_field_2 }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="image">
+                        {% if post.images.all %}
+                            <div class="image-gallery">
+                                {% for image in post.images.all %}
+                                    <img src="{{ image.image.url }}" alt="Image">
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="authors">
+                    <p>Authors:
+                        {% for author in post.authors.all %}
+                            {{ author.username }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </p>
+                    {% if post.file %}
+                        <p><a href="{{ post.file.url }}">Download File</a></p>
+                    {% endif %}
+                </div>
             </section>
-        {% endfor %}
-    </main>
+            {% endfor %}
+        </main>
+    </div>
+<!--    <script src="script.js"></script>-->
 </body>
 </html>

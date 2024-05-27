@@ -1,62 +1,95 @@
 body {
-    font-family: sans-serif;
-    background-color: #f2f2f2;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+header {
+    background-color: #008b8b;
+    padding: 10px 0;
+    color: white;
+}
+
+.header-container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    min-height: 100vh;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+nav a:hover {
+    text-decoration: underline;
 }
 
 .container {
-    background-color: #fff;
-    padding: 40px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    margin: 50px auto;
 }
 
 h1 {
-    text-align: center;
-    color: #222;
-    margin-bottom: 20px;
+    margin: 0 0 10px;
 }
 
-form {
+p {
+    margin: 0 0 20px;
+    color: #666;
+}
+
+.form-group {
     display: flex;
-    flex-direction: column;
-    width: 300px;
-}
-
-.input-field {
+    justify-content: space-between;
     margin-bottom: 15px;
 }
 
-label {
-    display: block;
-    margin-bottom: 5px;
-    color: #888;
-}
-
-input[type="text"],
-input[type="password"] {
+.form-group input {
+    width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 3px;
-    width: 100%;
+    border-radius: 5px;
 }
 
 button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
+    width: 100%;
+    padding: 10px;
+    background-color: #00bfff;
     border: none;
     border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
     cursor: pointer;
-    margin-top: 15px;
+}
+
+button:hover {
+    background-color: #009acd;
 }
 
 a {
-    color: #222;
+    color: #00bfff;
     text-decoration: none;
-    font-size: 0.8em;
-    margin-top: 10px;
+}
+
+a:hover {
+    text-decoration: underline;
 }
