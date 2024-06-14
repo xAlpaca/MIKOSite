@@ -13,59 +13,19 @@
     <script src="{% static 'script.js' %}"></script>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">MIKO</div>
-            <nav>
-                <ul>
-                    <li><a href="/bazahintow/">Baza zadań</a></li>
-                    <li><a href="/about/">O nas</a></li>
-                    <li><a href="/signup/">Zaloguj</a></li>
-                </ul>
-            </nav>
-        </header>
-        <main>
-            {% for post in posts %}
-            <section class="welcome">
-                <div class="header">
-                    <h1>{{ post.title }}</h1>
-                    {% if post.subtitle %}
-                        <p>{{ post.subtitle }}</p>
-                    {% endif %}
-                </div>
-                <div class="content">
-                    <div class="text">
-                        {% if post.text_field_1 %}
-                            <p>{{ post.text_field_1 }}</p>
-                        {% endif %}
-                        {% if post.text_field_2 %}
-                            <p>{{ post.text_field_2 }}</p>
-                        {% endif %}
-                    </div>
-                    <div class="image">
-                        {% if post.images.all %}
-                            <div class="image-gallery">
-                                {% for image in post.images.all %}
-                                    <img src="{{ image.image.url }}" alt="Image">
-                                {% endfor %}
-                            </div>
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="authors">
-                    <p>Authors:
-                        {% for author in post.authors.all %}
-                            {{ author.username }}{% if not forloop.last %}, {% endif %}
-                        {% endfor %}
-                    </p>
-                    {% if post.file %}
-                        <p><a href="{{ post.file.url }}">Download File</a></p>
-                    {% endif %}
-                </div>
-            </section>
-            {% endfor %}
-        </main>
-    </div>
+    <header>
+        <nav class="navbar">
+            <div class="navbar-logo">
+                <a href="#">Logo</a>
+            </div>
+            <ul class="navbar-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 <!--    <script src="script.js"></script>-->
 </body>
 </html>
