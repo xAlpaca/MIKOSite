@@ -1,14 +1,25 @@
 {% load static %}
+<!-- TODO -->
+<!-- extends "base.html" 
 
+ block content 
 
+ endblock content  
+ procent nawias otacza kazde ofc-->
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+        rel="stylesheet">
     <title>Rejestracja</title>
-    <link rel="stylesheet" href="{% static 'styleSignup.css' %}">
+    <link rel="stylesheet" href="{% static 'accounts/styleSignup.css' %}">
 </head>
+
 <body>
     <header>
         <div class="header-container">
@@ -23,7 +34,7 @@
     </header>
     <div class="container">
         <h1>Rejestracja</h1>
-        <p>Utwórz konto aby dodawać zadania oraz rozwiązania do bazy hintów!</p>
+        <div id="comment">Utwórz konto aby dodawać zadania oraz rozwiązania do bazy hintów!</div>
         <form id="registrationForm" method="POST" enctype="multipart/form-data" action="/signup/">
             {% csrf_token %}
 
@@ -59,10 +70,11 @@
                     <option value="Wielkopolskie">Wielkopolskie</option>
                     <option value="Zachodniopomorskie">Zachodniopomorskie</option>
                 </select>
+                <input type="date" id="dateOfBirth" name="date_of_birth" placeholder="Data urodzenia">
             </div>
-            <div class="form-group">
-                <input type="date" id="dateOfBirth" name="date_of_birth" placeholder="Data urodzenia (lub po prostu rok)">
-            </div>
+
+
+
             <div class="form-group">
                 <label for="profileImage">Zdjęcie profilowe</label>
                 <input type="file" id="profileImage" name="profile_image" accept="image/*">
@@ -72,21 +84,22 @@
         <br>
         <p>Masz już konto? <a href="../signin/">Zaloguj</a></p>
 
-     <p style="color: red">{{ custom_message }}</p>
+        <p style="color: red">{{ custom_message }}</p>
 
     </div>
 
     <script>
-        document.getElementById('registrationForm').addEventListener('submit', function(event) {
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
+        document.getElementById('registrationForm').addEventListener('submit', function (event) {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
 
-    if (password !== confirmPassword) {
-        event.preventDefault();
-        alert('Hasła się nie zgadzają!');
-    }
-});
-s
+            if (password !== confirmPassword) {
+                event.preventDefault();
+                alert('Hasła się nie zgadzają!');
+            }
+        });
+        s
     </script>
 </body>
+
 </html>
