@@ -3,3 +3,4 @@ django_taggit
 django_formtools
 fuzzywuzzy
 Pillow
+python-Levenshtein
