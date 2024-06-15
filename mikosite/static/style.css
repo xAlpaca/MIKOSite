@@ -61,3 +61,98 @@
 {
     color: #F2B544;
 }
+
+/* Styl dla sekcji paralaksy */
+.parallax {
+    background-image: url('parallax-image.jpg'); /* Ścieżka do obrazu */
+    height: 300px; /* Wysokość sekcji */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#feed
+{
+    margin-left: auto;
+    margin-right: auto; 
+    box-sizing: border-box;
+    width: 1400px;
+}
+
+@media screen and (max-width: 1500px) {
+    #feed {
+       width: -webkit-calc(100% - 100px);
+    }
+ }
+
+h1
+{
+    font-size: 60px;
+    color: #06313E;
+}
+
+h2
+{
+    font-size: 40px;
+    color: #F2B544;
+}
+
+h3
+{
+    font-size: 30px;
+    font-weight: 400;
+    color: #06313E;
+}
+
+hr
+{
+    color: #06313E;
+    background-color: #06313E;
+    height: 3px;
+}
+
+.column_left
+{
+    float: left;
+    width: 230px;
+    margin-right: 60px;
+}
+.column_right
+{
+    float: left;
+    width: -webkit-calc(100% - 290px);
+    flex-wrap: wrap;
+    text-wrap: wrap;
+}
+
+.row:after 
+{
+content: "";
+display: table;
+clear: both;
+}
+
+.post
+{
+    border-style: solid;
+    border-color: #06313E;
+    border-width: 2px;
+    border-radius: 20px;
+
+    color: #06313E;
+
+    padding: 40px 50px;
+    margin-bottom: 60px;
+}
+
+.profile
+{
+    display: grid;
+    justify-items: center;
+    background-color: #06313E;
+    height: 300px;
+    border-radius: 20px;
+    align-content: center;
+    padding: 20px;
+}
