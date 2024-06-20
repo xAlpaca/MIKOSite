@@ -70,16 +70,6 @@
     color: var(--y1);
 }
 
-/* Styl dla sekcji paralaksy */
-.parallax {
-    background-image: url('parallax-image.jpg'); /* Ścieżka do obrazu */
-    height: 300px; /* Wysokość sekcji */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
 #feed
 {
     margin-left: auto;
@@ -123,15 +113,10 @@ hr
 .column_left
 {
     float: left;
-    width: 230px;
-    margin-right: 60px;
 }
 .column_right
 {
     float: left;
-    width: -webkit-calc(100% - 290px);
-    flex-wrap: wrap;
-    text-wrap: wrap;
 }
 
 .row:after 

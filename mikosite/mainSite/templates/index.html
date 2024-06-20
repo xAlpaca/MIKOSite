@@ -14,8 +14,7 @@
     <header>
         <nav class="navbar">
             <div class="navbar-left">
-                <img src="{% static 'Screenshot_2.png' %}" alt="Logo">
-                <a href="">MIKO</a>
+                <img src="{% static 'LOGO_HEADER.png' %}" alt="Logo" style="height: 80px;">
             </div>
             <ul class="navbar-center">
                 <li><a id="current" href="">HOME</a></li>
@@ -30,25 +29,28 @@
     </header>
 
     <main>
-        <section class="parallax"></section>
+        <div class="row"></div>
+        <div class="column_left" style="width: 500px;">
+        </div>
+        <div class="column_right" style="width: -webkit-calc(100% - 500px);flex-wrap: wrap;text-wrap: wrap;">
+            <img src="{% static 'MIKO_PICTURE.png' %}" alt="miko" >         
+        </div>
     </main>
 
     <section id="feed">
-        <h1>Aktualności</h1>
+        <h1 style="margin-top: 50px;">Aktualności</h1>
         <hr>
         <div class="row" style="margin: 60px 0;">
-            <div class="column_left">
+            <div class="column_left" style="width: 230px;margin-right: 60px;">
                 <div class="profile">
-                    <div
-                        style="background-color: #ccc ; border-radius: 50px; height: 100px; width: 100px; margin-bottom: 30px;">
-                    </div>
-                    <h3 id="profile_name" style="color: white; text-align: center;">Marek Spermal</h3>
+                        <img src="{% static 'BLANK_PERSON.png' %}" alt="person" style="height: 100px; border-radius: 50px; margin-bottom: 20px;">
+                    <h3 id="profile_name" style="color: white; text-align: center;">Nazwa profilu</h3>
                 </div>
             </div>
-            <div class="column_right">
+            <div class="column_right" style="width: -webkit-calc(100% - 290px);flex-wrap: wrap;text-wrap: wrap;">
                 <div class="post">
-                    <h2 id="post_title">Problem lgbt</h2>
-                    <h3 id="post_subtitle" style="margin-bottom: 20px;">Też o czrnych</h3>
+                    <h2 id="post_title">Post 1</h2>
+                    <h3 id="post_subtitle" style="margin-bottom: 20px;">podtytuł</h3>
                     <p id="post_content"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id auctor lectus.
                         Nullam commodo vehicula est, et tempus libero consequat et. Nulla vehicula sem imperdiet
                         ultricies congue. Nulla et sagittis tellus. Mauris ut justo risus. Ut ut nisi rutrum,
@@ -60,10 +62,17 @@
                         sit amet arcu erat.</p>
                 </div>
                 <div class="post">
-                    <h2 id="post_title">NEW POST</h2>
-                    <h3 id="post_subtitle" style="margin-bottom: 20px;">Jebac żydów</h3>
-                    <p id="post_content">Download File
-                        ŻYDZI JEBANI SA</p>
+                    <h2 id="post_title">Post 2</h2>
+                    <h3 id="post_subtitle" style="margin-bottom: 20px;">podtytuł</h3>
+                    <p id="post_content"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id auctor lectus.
+                        Nullam commodo vehicula est, et tempus libero consequat et. Nulla vehicula sem imperdiet
+                        ultricies congue. Nulla et sagittis tellus. Mauris ut justo risus. Ut ut nisi rutrum,
+                        condimentum justo eu, ornare arcu. In vitae elit id tortor sodales rutrum.
+                        Duis vel convallis ligula, ac lobortis leo. Curabitur tristique ornare tincidunt. Nulla lacus
+                        massa, tristique a malesuada a, viverra eu eros. Duis cursus eu elit vel eleifend. Nunc neque
+                        quam, placerat vel molestie eget, sollicitudin at nisl. In rhoncus consectetur augue, vel mattis
+                        libero pharetra quis. Cras non ultrices nibh, non maximus augue. Nunc vitae pulvinar sapien. In
+                        sit amet arcu erat.</p>
                 </div>
             </div>
         </div>
