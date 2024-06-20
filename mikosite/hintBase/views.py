@@ -15,131 +15,176 @@ from fuzzywuzzy import fuzz
 # Create your views here.
 
 
-
+# Index view: Displays the list of problems with filtering options
 def index(request):
+    # Retrieve all problems in reverse order
     all_problems = reversed(Problem.objects.all())
     
-    
+    # Check if the user belongs to the 'Moderator' group
     user_belongs_to_moderator_group = request.user.groups.filter(name='Moderator').exists()
-    tags = list([tag.name for tag in Tag.objects.all()])
+    
+    # Get all tag names
+    tags = [tag.name for tag in Tag.objects.all()]
     
     if request.method == 'POST':
-        tags_to_filter = request.POST.getlist('tags_to_filter')
+        tags_to_filter = set(request.POST.getlist('tags_to_filter'))
         max_difficulty = int(request.POST.get('difficulty_max'))
         min_difficulty = int(request.POST.get('difficulty_min'))
+        
+        # Validate difficulty range
         if max_difficulty < min_difficulty:
-            return render(request, 'index1.html', {"all_problems": all_problems,  "user_belongs_to_moderator_group": user_belongs_to_moderator_group, "tags": tags})
-        else:
-            if len(tags_to_filter) == 0:
-                filtered_problems = Problem.objects.filter(difficulty__gte=min_difficulty, difficulty__lte=max_difficulty)
-                return render(request, 'index1.html', {"all_problems": filtered_problems,  "user_belongs_to_moderator_group": user_belongs_to_moderator_group, "tags": tags})
-            else:
-                filtered_problems =[]
-                for problem in all_problems:
-                    problemtags = set([tg for tg in problem.tags.names()])
-                    tags_to_filter = set(tags_to_filter)
-                    print(tags_to_filter, problemtags)
-                    if tags_to_filter.issubset(problemtags):
-                        filtered_problems.append(problem)
-                return render(request, 'index1.html', {"all_problems": filtered_problems,  "user_belongs_to_moderator_group": user_belongs_to_moderator_group, "tags": tags})
+            return render(request, 'index1.html', {
+                "all_problems": all_problems, 
+                "user_belongs_to_moderator_group": user_belongs_to_moderator_group, 
+                "tags": tags
+            })
+        
+        # Filter problems by difficulty and tags
+        filtered_problems = Problem.objects.filter(difficulty__gte=min_difficulty, difficulty__lte=max_difficulty)
+        if tags_to_filter:
+            filtered_problems = [
+                problem for problem in filtered_problems
+                if tags_to_filter.issubset(set(problem.tags.names()))
+            ]
 
         
-        
-    #     filtered_problems = Problem.objects.filter(tags__name__in=request.POST.getlist('tags'))
-    return render(request, 'index1.html', {"all_problems": all_problems,  "user_belongs_to_moderator_group": user_belongs_to_moderator_group, "tags": tags})
+        return render(request, 'index1.html', {
+            "all_problems": filtered_problems, 
+            "user_belongs_to_moderator_group": user_belongs_to_moderator_group, 
+            "tags": tags
+        })
 
+    return render(request, 'index1.html', {
+        "all_problems": all_problems, 
+        "user_belongs_to_moderator_group": user_belongs_to_moderator_group, 
+        "tags": tags
+    })
+
+
+# Add Problem view: Allows authenticated users to add a new problem
 @login_required(login_url='../../signin')
 def addproblem(request):
-    tags = list([tag.name for tag in Tag.objects.all()])
+    tags = [tag.name for tag in Tag.objects.all()]
+
     if request.method == 'POST':
-        
         latex_code = request.POST.get('latex_code')
         source = request.POST.get('source')
         image = request.FILES.get('image')
-        difficulty = int(request.POST.get('difficulty'))
         selected_tags = request.POST.getlist('selected_tags')
+
+        try:
+            difficulty = int(request.POST.get('difficulty'))
+            if not (0 <= difficulty <= 11):
+                raise ValueError
+        except (ValueError, TypeError):
+            return render(request, 'addproblem.html', {
+                "custom_message": "Coś jest nie tak z trudnością. Musi być liczbą całkowitą między 0 a 10.",
+                "tags": tags,
+                "confirm_key": "False"
+            })
 
         problem = Problem(
             latex_code=latex_code,
             source=source,
             image=image,
             difficulty=difficulty,
-            author = request.user
+            author=request.user
         )
+
         confirm_key = request.POST.get('confirm_key')
-        # print(confirm_key)
-        if confirm_key == None:
+
+        # Check for similar problems if confirmation key is not set
+        if confirm_key is None:
             for tag in selected_tags:
                 if tag not in tags:
-                    return render(request, 'addproblem.html', {"custom_message": f"Tag {tag} nie istnieje", "confirm_key" : "False", "tags": tags})
-            similar_problems=[]
-            for selected_Problem in Problem.objects.all():
-                selected_Problem_code = selected_Problem.latex_code
-                if fuzz.ratio(selected_Problem_code, latex_code) > 64:
-                    similar_problems.append(selected_Problem)
-            if len(similar_problems) > 0:
-                    return render(request, 'addproblem.html', {"tags": tags, "custom_message": f"Możliwe że to zadanie już jest w bazie zadań, sprawdź czy dalej chcesz dodać to zadanie.", "similar_problems": similar_problems, "confirm_key" : "True", "problem": problem})
-       
+                    return render(request, 'addproblem.html', {
+                        "custom_message": f"Tag {tag} nie istnieje",
+                        "confirm_key": "False",
+                        "tags": tags
+                    })
+            similar_problems = [
+                selected_Problem for selected_Problem in Problem.objects.all()
+                if fuzz.ratio(selected_Problem.latex_code, latex_code) > 64
+            ]
+            if similar_problems:
+                return render(request, 'addproblem.html', {
+                    "tags": tags,
+                    "custom_message": "Możliwe, że to zadanie już jest w bazie zadań, sprawdź czy dalej chcesz dodać to zadanie.",
+                    "similar_problems": similar_problems,
+                    "confirm_key": "True",
+                    "problem": problem
+                })
+
         if confirm_key == "Usuń":
-            return render(request, 'addproblem.html', {"custom_message": f"Usinięto zadanie.", "confirm_key" : "False", "tags": tags})
-        
+            return render(request, 'addproblem.html', {
+                "custom_message": "Usunięto zadanie.",
+                "confirm_key": "False",
+                "tags": tags
+            })
+
         problem.save()
         problem.tags.add(*selected_tags)
         problem.save()
-        
-        return render(request, 'addproblem.html', {"custom_message": f"Zadanie zostało dodane, id zadania: {problem.problem_id}, ", "confirm_key" : "False", "tags": tags})
-    
-    return render(request, 'addproblem.html', {"tags": tags, "confirm_key" : "False"})
+
+        return render(request, 'addproblem.html', {
+            "custom_message": f"Zadanie zostało dodane, id zadania: {problem.problem_id}",
+            "confirm_key": "False",
+            "tags": tags
+        })
+
+    return render(request, 'addproblem.html', {
+        "tags": tags,
+        "confirm_key": "False"
+    })
 
 
+# View Problem view: Displays a specific problem and its hints
 def view_problem(request, problem_id):
     problem = get_object_or_404(Problem, problem_id=problem_id)
     hinty = ProblemHint.objects.filter(problem=problem, verified=True)
-    
-    
-    return render(request, 'viewproblem.html', {"problem": problem, "user": request.user, "hinty": hinty})
 
+    return render(request, 'viewproblem.html', {
+        "problem": problem,
+        "user": request.user,
+        "hinty": hinty
+    })
+
+
+# Add Solution view: Allows authenticated users to add a solution to a problem
 @login_required(login_url='../signin')
 def add_solution(request, problem_id):
-    problemf = get_object_or_404(Problem, problem_id=problem_id)
-    
+    problem = get_object_or_404(Problem, problem_id=problem_id)
+
     if request.method == 'POST':
-        hints = ""
-        for key, value in request.POST.items():
-            if key.startswith('hint'):
-                hints += value + "\n"
-        hints = hints.rstrip("\n")
-        
+        hints = "\n".join([value for key, value in request.POST.items() if key.startswith('hint')])
+
         problemhint = ProblemHint(
-            problem = problemf,
-            author = request.user,
-            hints = hints,
-            latex_solution = request.POST.get('solution'),
-            
-        )   
+            problem=problem,
+            author=request.user,
+            hints=hints,
+            latex_solution=request.POST.get('solution'),
+        )
         problemhint.save()
-        return redirect(f"/bazahintow/view_problem/{problem_id}/")     
-    return render(request, 'addsolution.html', {"problem": problemf} )
+        return redirect(f"/bazahintow/view_problem/{problem_id}/")
+
+    return render(request, 'addsolution.html', {"problem": problem})
 
 
+# Verify Solutions view: Allows moderators to verify or delete solutions
 @login_required(login_url='../../signin')
 def verifysolutions(request):
-    messages={}
-    
-    if request.user.groups.filter(name='Moderator').exists() == False:
+    if not request.user.groups.filter(name='Moderator').exists():
         return redirect("/")
 
     solutions_toverify = ProblemHint.objects.filter(verified=False)
-    
+
     if request.method == 'POST':
-        print(request.POST)
-        if request.POST.get('delete_solution') != None:
-            hint_to_delete = ProblemHint.objects.get(hintId=request.POST.get('delete_solution'))
+        if 'delete_solution' in request.POST:
+            hint_to_delete = ProblemHint.objects.get(hintId=request.POST['delete_solution'])
             hint_to_delete.delete()
-        elif request.POST.get('verify_solution') != None:
-            hint_to_verify = ProblemHint.objects.get(hintId=request.POST.get('verify_solution'))
+        elif 'verify_solution' in request.POST:
+            hint_to_verify = ProblemHint.objects.get(hintId=request.POST['verify_solution'])
             hint_to_verify.verified = True
             hint_to_verify.save()
-        
-    
+
     return render(request, 'verifysolutions.html', {"solutions_toverify": solutions_toverify})
