@@ -9,7 +9,9 @@ from django.conf import settings
 from .models import Problem, ProblemHint
 from taggit.models import Tag
 from fuzzywuzzy import fuzz
-
+from datetime import datetime
+from pytz import timezone
+import pytz
 
 
 # Create your views here.
@@ -83,12 +85,24 @@ def addproblem(request):
                 "confirm_key": "False"
             })
 
+        warsaw_timezone = timezone('Europe/Warsaw')
+
+        # Get current time in Warsaw timezone
+        current_time = datetime.now(warsaw_timezone)
+
+        # Extract date and time
+        current_date = current_time.date()
+        current_time = current_time.time()
+
+
         problem = Problem(
             latex_code=latex_code,
             source=source,
             image=image,
             difficulty=difficulty,
-            author=request.user
+            author=request.user,
+            date = current_date,
+            time = current_time,
         )
 
         confirm_key = request.POST.get('confirm_key')
@@ -153,7 +167,19 @@ def view_problem(request, problem_id):
 # Add Solution view: Allows authenticated users to add a solution to a problem
 @login_required(login_url='../signin')
 def add_solution(request, problem_id):
+
+
     problem = get_object_or_404(Problem, problem_id=problem_id)
+
+    warsaw_timezone = timezone('Europe/Warsaw')
+
+    # Get current time in Warsaw timezone
+    current_time = datetime.now(warsaw_timezone)
+
+    # Extract date and time
+    current_date = current_time.date()
+    current_time = current_time.time()
+
 
     if request.method == 'POST':
         hints = "\n".join([value for key, value in request.POST.items() if key.startswith('hint')])
@@ -163,6 +189,8 @@ def add_solution(request, problem_id):
             author=request.user,
             hints=hints,
             latex_solution=request.POST.get('solution'),
+            date=current_date,
+            time=current_time,
         )
         problemhint.save()
         return redirect(f"/bazahintow/view_problem/{problem_id}/")

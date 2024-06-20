@@ -7,12 +7,15 @@ class Problem(models.Model):
     
     problem_id = models.AutoField(primary_key=True)
     latex_code = models.TextField()
+
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     source = models.CharField(max_length=100, blank=True, null=True)
     image = models.ImageField(upload_to='problem_images/', blank=True, null=True)
     difficulty = models.PositiveIntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(10)]
     )
+    date = models.DateField(blank=True, null=True)  # Date field
+    time = models.TimeField(blank=True, null=True)  # Time field
 
     tags = TaggableManager()
 
@@ -29,6 +32,9 @@ class ProblemHint(models.Model):
     verified = models.BooleanField(default=False)
     hints = models.TextField()  # Serialized list of hints
     latex_solution = models.TextField()
+    date = models.DateField(blank=True, null=True)  # Date field
+    time = models.TimeField(blank=True, null=True)  # Time field
+
 
     def __str__(self):
         return f'Hint for Problem {self.problem.problem_id} by {self.author.username}'
