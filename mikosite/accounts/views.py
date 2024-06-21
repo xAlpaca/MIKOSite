@@ -71,14 +71,12 @@ def signup(request):
 def signin(request):
     
     if request.user.is_authenticated:
-            return render(request, "signin.html", {"custom_message": f"Jesteś zalogowany {request.user.username}. Musisz się wylogować, aby zalogować się ponownie."})
+            return render(request, "signin.html", {"custom_message": f"Jesteś zalogowany jako {request.user.username}. Musisz się wylogować, aby zalogować się ponownie."})
     
     if request.method == "POST":
         
-        
         username = request.POST.get("username")
         password = request.POST.get("password")
-        
         
         user = authenticate(username=username, password=password)
         if user is not None:

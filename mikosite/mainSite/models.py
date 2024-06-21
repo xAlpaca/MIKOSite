@@ -12,7 +12,8 @@ class Post(models.Model):
     images = models.ManyToManyField('Image', blank=True)
     text_field_1 = models.TextField(max_length=5000, blank=True)
     text_field_2 = models.TextField(max_length=5000, blank=True)
-
+    date = models.DateField(blank=True, null=True)  # Date field
+    time = models.TimeField(blank=True, null=True)  # Time field
     def __str__(self):
         
         return f"{self.title}"

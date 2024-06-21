@@ -1,6 +1,6 @@
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
+  font-family: "Rubik", sans-serif;
+  font-optical-sizing: auto;
   background-color: #f0f0f0;
 }
 
@@ -50,6 +50,7 @@ nav a:hover {
 
 h1 {
   margin: 0 0 10px;
+  color: #F2B544;
 }
 
 p {
@@ -68,8 +69,21 @@ p {
   width: 48%;
   padding: 10px;
   margin-right: 5px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border: 0px;
+  border-bottom: 1px solid #074A59;
+  border-radius: 3px;
+}
+
+.form-group select {
+  margin-right: 4%;
+}
+
+#comment {
+  width: 200px;
+  color: #696969;
+  font-size: 10px;
+  margin-left: 3px;
+  margin-bottom: 15px;
 }
 
 .form-group input[type="file"] {
@@ -78,7 +92,6 @@ p {
 
 button {
   width: 100%;
-  padding: 10px;
   background-color: #00bfff;
   border: none;
   border-radius: 5px;
