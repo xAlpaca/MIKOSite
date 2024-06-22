@@ -8,26 +8,34 @@
 <title>Tasks Page</title>
 <link rel="stylesheet" href="{% static 'hintbaseindexStyle.css' %}">
 <script defer src="{% static 'hintbaseindexScript.js' %}"></script>
+
 </head>
 <body>
 
-<header>
-    <h1>Zadania</h1>
-    {% if user.is_authenticated %}
-        <a href="./addproblem/">Dodaj zadanie</a>
-        {% if user_belongs_to_moderator_group %}
-            <a href="./verifysolutions/">Weryfikacja rozwiązań</a>
-        {% endif %}
-    {% endif %}
-    
-</header>
+    <header>
+        <nav class="navbar">
+            <div class="navbar-left">
+                <img src="{% static 'LOGO_HEADER.png' %}" alt="Logo" style="height: 80px;">
+            </div>
+            <ul class="navbar-center">
+                <li><a href="/">HOME</a></li>
+                <li><a id="current"  href="/bazahintow">BAZA ZADAŃ</a></li>
+                <li><a href="/bazahintow/addproblem">DODAJ ZADANIE</a></li>
+                <li><a href="/about">O NAS</a></li>
+            </ul>
+            <div class="navbar-right">
+                <a href="/profile">PROFIL</a>
+            </div>
+        </nav>
+    </header>
 
 <div class="container">
-        <button class="back-button" onclick="goBack()">Back</button>
 
+
+    <h1> Baza zadań</h1>
     <form method="POST" id= "filter-form" action=''>
         {% csrf_token %}
-        <label for="tags">Select Tags:</label><br>
+        <label for="tags">Wybierz tagi:</label><br>
         <select name="tags_to_filter" id="tags" multiple>
             {% for tag in tags %}
             <option value="{{ tag }}">{{ tag }}</option>
@@ -44,19 +52,32 @@
     <br><br>
     {% for problem in all_problems %}
     <div class="problem-block">
-        <h2>Problem ID: {{ problem.problem_id }}</h2>
-        <p><strong>Genre:</strong> 
+        <h2>Zadanie {{ problem.problem_id }}</h2>
+        <p><strong>Tagi:</strong> 
             {% for tag_name in problem.tags.names %}
                 <span>{{ tag_name }};</span>
             {% endfor %}
         </p>
         
-        <p><strong>Difficulty:</strong> {{ problem.difficulty }}</p>
-        <p><strong>Author:</strong> 
+        <p><strong>trudność:</strong> {{ problem.difficulty }}</p>
+        <p><strong>Zadanie dodał/a:</strong> 
             {% if proben.author != "" %} 
             {{ problem.author.username }}
-            {% endif %}</p>
-        <a href="/bazahintow/view_problem/{{ problem.problem_id }}" class="view-button">View Problem</a>
+            {% endif %}
+        </p>
+        
+        <p>
+            <strong>
+                Gatunek:</strong>
+            {% for tag_name in problem.tags.names %}
+            <span>{{ tag_name }},</span>
+            {% endfor %}
+        </p>
+
+        <div style="display: flex;justify-content: flex-end;">
+            <a href="/bazahintow/view_problem/{{ problem.problem_id }}" class="view-button">Zobacz zadanie</a>
+        </div>
+        
     </div>
     {% endfor %}
 

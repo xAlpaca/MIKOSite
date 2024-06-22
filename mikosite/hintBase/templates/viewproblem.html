@@ -33,7 +33,23 @@
 </head>
 
 <body>
-    <!-- TODO: HEADER Z TEMPLATKI WSTAWIĆ -->
+    
+    <header>
+        <nav class="navbar">
+            <div class="navbar-left">
+                <img src="{% static 'LOGO_HEADER.png' %}" alt="Logo" style="height: 80px;">
+            </div>
+            <ul class="navbar-center">
+                <li><a href="/">HOME</a></li>
+                <li><a id="current" href="/bazahintow">BAZA ZADAŃ</a></li>
+                <li><a href="/bazahintow/addproblem">DODAJ ZADANIE</a></li>
+                <li><a href="/about">O NAS</a></li>
+            </ul>
+            <div class="navbar-right">
+                <a href="/profile">PROFIL</a>
+            </div>
+        </nav>
+    </header>
     <div id="container">
         <div id="title">
             <div class="problem-title-box">
@@ -47,34 +63,35 @@
                         {% endif %}</h2>
                 </div>
                 <div class="problem-main-details">
-                    <h2> Trudność zadania: {{ problem.difficulty }}</h2>
+                    <h2> Trudność: {{ problem.difficulty }}</h2>
                 </div>
             </div>
         </div>
-        <div id='problem-content'>
+        <div id='problem-content'> 
+            <h2>
+                Źródło: {{ problem.source }}<br>
+                Tagi:
+                {% for tag_name in problem.tags.names %}
+                <span>{{ tag_name }},</span>
+                {% endfor %}
+            </h2>
+            <h2>
+                {% if problem.image %}
 
-            Source: {{ problem.source }}<br>
-            Genre:
-            {% for tag_name in problem.tags.names %}
-            <span>{{ tag_name }},</span>
-            {% endfor %}
-            </p>
-            {% if problem.image %}
+            </h2>
             <img src="{{ problem.image.url }}" alt="Problem Image">
             {% endif %}
-
-            <div>
-                <strong>LaTeX Code:</strong><br>
-                <div id="latex-container">
-                    {{ problem.latex_code }}
-                </div>
+            
+            <hr style="
+            color: var(--b1);
+            background-color: var(--b1);
+            height: 1px; width: 120px; border: 0; margin-top: 40px; ">
+            <div id="latex-container">
+                {{ problem.latex_code }}
             </div>
 
 
         </div>
-        <br>
-
-        <br>
         <div id="hints-container">
             <div id="hint-title">
                 <!-- TODO dodac w nawiasie ile jest rozwiazan -->

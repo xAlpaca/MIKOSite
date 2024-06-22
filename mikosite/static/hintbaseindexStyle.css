@@ -1,49 +1,91 @@
-/* CSS styles */
-
-/* Reset styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2; /* Light grey background */
+:root {
+    --b1: #074A59;
+    --b2: #06313E;
+    --r1: #F24535;
+    --y1: #F2B544;
+    --w1: #ffffff;
+  }
+
+.navbar {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    background-color: #fff;
+    height: 80px; 
+    padding-right: 50px; 
+    padding-left: 50px; 
+    border-bottom: 1px solid var(--b1); 
 }
 
-header {
-    background-color: #4CAF50; /* Green background */
-    color: #fff;
-    padding: 20px;
-    text-align: center;
+.navbar a {
+    color: var(--b1);
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: bold;
 }
 
-button {
-    background-color: #45a049; /* Darker green button */
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.navbar-left {
+    margin-right: auto; 
 }
 
-button:hover {
-    background-color: #4CAF50; /* Lighter green on hover */
+.navbar-center {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+.navbar-right {
+    margin-left: auto; 
+}
+.navbar-center li {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-center li + li::before {
+    content: "|";
+    color: 06313E;
+    font-weight: 900;
+    margin: 20px 20px; 
+}
+
+.navbar a:hover {
+    color: var(--y1);
+}
+
+#current
+{
+    color: var(--r1);
+}
+#current:hover
+{
+    color: var(--y1);
 }
 
 .container {
-    padding: 20px;
-    /* display: flex; */
-    flex-wrap: wrap;
-    justify-content: center;
+    margin-left: auto;
+    margin-right: auto; 
+    box-sizing: border-box;
+    width: 1400px;
+}
+
+@media screen and (max-width: 1500px) {
+    .container {
+       width: -webkit-calc(100% - 100px);
+    }
 }
 
 .problem {
-    background-color: #fff;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 20px;
     padding: 20px;
     margin: 10px;
     width: 300px;
@@ -57,33 +99,39 @@ button:hover {
 }
 
 .problem-block {
-    border: 1px solid #ccc;
+    color: var(--b1);
+    border: 1px solid var(--b1);
+    border-radius: 20px;
     padding: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 60px;
 }
+
+.problem-block h2 {
+    color: var(--y1);
+    font-size: 40px;
+}
+
 .view-button {
-    background-color: #4CAF50;
+    background-color: var(--r1);
     color: white;
     padding: 10px 20px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    border-radius: 4px;
+    border-radius: 50px;
+    border: 2px solid var(--r1);
+}
+.view-button:hover
+{
+background-color: white;
+color: var(--r1);
+border: 2px solid var(--r1);
 }
 
-.back-button {
-        display: inline-block;
-        padding: 10px 20px;
-        font-size: 16px;
-        color: #fff;
-        background-color: #007bff;
-        border: none;
-        border-radius: 4px;
-        text-align: center;
-        text-decoration: none;
-        cursor: pointer;
-    }
-
-    .back-button:hover {
-        background-color: #0056b3;
-    }
+h1
+{
+    margin-top: 50px ;
+    margin-bottom: 20px;
+    font-size: 90px;
+    color: var(--b1);
+}
