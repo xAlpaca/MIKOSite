@@ -14,8 +14,10 @@ class Problem(models.Model):
     difficulty = models.PositiveIntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(10)]
     )
-    date = models.DateField(blank=True, null=True)  # Date field
-    time = models.TimeField(blank=True, null=True)  # Time field
+    date = models.DateField(blank=True, null=True)
+    time = models.TimeField(blank=True, null=True) 
+    verified = models.BooleanField(default=False)
+
 
     tags = TaggableManager()
 
