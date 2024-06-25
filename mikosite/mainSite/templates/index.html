@@ -45,32 +45,41 @@
                 </div>
             </div>
             <div class="column_right" style="width: -webkit-calc(100% - 290px);flex-wrap: wrap;text-wrap: wrap;">
-                <div class="post">
-                    <h2 id="post_title">Post 1</h2>
-                    <h3 id="post_subtitle" style="margin-bottom: 20px;">podtytuł</h3>
-                    <p id="post_content"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id auctor lectus.
-                        Nullam commodo vehicula est, et tempus libero consequat et. Nulla vehicula sem imperdiet
-                        ultricies congue. Nulla et sagittis tellus. Mauris ut justo risus. Ut ut nisi rutrum,
-                        condimentum justo eu, ornare arcu. In vitae elit id tortor sodales rutrum.
-                        Duis vel convallis ligula, ac lobortis leo. Curabitur tristique ornare tincidunt. Nulla lacus
-                        massa, tristique a malesuada a, viverra eu eros. Duis cursus eu elit vel eleifend. Nunc neque
-                        quam, placerat vel molestie eget, sollicitudin at nisl. In rhoncus consectetur augue, vel mattis
-                        libero pharetra quis. Cras non ultrices nibh, non maximus augue. Nunc vitae pulvinar sapien. In
-                        sit amet arcu erat.</p>
-                </div>
-                <div class="post">
-                    <h2 id="post_title">Post 2</h2>
-                    <h3 id="post_subtitle" style="margin-bottom: 20px;">podtytuł</h3>
-                    <p id="post_content"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id auctor lectus.
-                        Nullam commodo vehicula est, et tempus libero consequat et. Nulla vehicula sem imperdiet
-                        ultricies congue. Nulla et sagittis tellus. Mauris ut justo risus. Ut ut nisi rutrum,
-                        condimentum justo eu, ornare arcu. In vitae elit id tortor sodales rutrum.
-                        Duis vel convallis ligula, ac lobortis leo. Curabitur tristique ornare tincidunt. Nulla lacus
-                        massa, tristique a malesuada a, viverra eu eros. Duis cursus eu elit vel eleifend. Nunc neque
-                        quam, placerat vel molestie eget, sollicitudin at nisl. In rhoncus consectetur augue, vel mattis
-                        libero pharetra quis. Cras non ultrices nibh, non maximus augue. Nunc vitae pulvinar sapien. In
-                        sit amet arcu erat.</p>
-                </div>
+                
+                {% for post in posts %}
+                    <div class="post">
+                        <h2 id="post_title">{{ post.title }}</h2>
+                        <h3 id="post_subtitle" style="margin-bottom: 20px;">{{ post.subtitle }}</h3>
+                        <p><strong>Aoutor/autorzy:</strong> 
+                            {% for author in post.authors.all %}
+                                {{ author.name }}{% if not forloop.last %}; {% endif %}
+                            {% endfor %}
+                        </p>
+                        <p><strong>Date:</strong> {{ post.date }}</p>
+                        <p><strong>Time:</strong> {{ post.time }}</p>
+                        <p id="post_content">{{ post.text_field_1 }}</p>
+                        <p>{{ post.text_field_2 }}</p>
+                        <p>
+                            <strong>File:</strong> 
+                            {% if post.file %}
+                                <a href="{{ post.file.url }}">Download</a>
+                            {% else %}
+                                No file available
+                            {% endif %}
+                        </p>
+                        <div class="images">
+                            <strong>Images:</strong>
+                            {% for image in post.images.all %}
+                                <img src="/media/{{ image }}" alt="{{ image.alt_text }}">
+                            {% empty %}
+                                
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% empty %}
+                    <p>Brak postów.</p>
+                {% endfor %}
+
             </div>
         </div>
     </section>

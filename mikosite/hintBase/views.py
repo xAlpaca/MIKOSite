@@ -204,8 +204,7 @@ def verifysolutions(request):
     if not request.user.groups.filter(name='Moderator').exists():
         return redirect("/")
 
-    solutions_toverify = ProblemHint.objects.filter(verified=False)
-
+   
     if request.method == 'POST':
         if 'delete_solution' in request.POST:
             hint_to_delete = ProblemHint.objects.get(hintId=request.POST['delete_solution'])
@@ -215,4 +214,8 @@ def verifysolutions(request):
             hint_to_verify.verified = True
             hint_to_verify.save()
 
-    return render(request, 'verifysolutions.html', {"solutions_toverify": solutions_toverify})
+    solutions_toverify = ProblemHint.objects.filter(verified=False)
+    problems_toverify = Problem.objects.filter(verified=False) # Add functionality to remove unferified problems. 
+
+
+    return render(request, 'verifysolutions.html', {"solutions_toverify": solutions_toverify, "problems_toverify" : problems_toverify})
