@@ -182,7 +182,7 @@ input[type="number"] {
     width: -webkit-calc(50% - 30px);
     flex-wrap: wrap;
     text-wrap: wrap;
-    margin-bottom: 60px;
+    margin-bottom: 30px;
 }
 .row:after 
 {
