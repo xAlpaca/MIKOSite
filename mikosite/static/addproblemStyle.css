@@ -159,6 +159,7 @@ input[type="submit"] {
     border: none;
     border-radius: 20px;
     cursor: pointer;
+    border: 2px solid var(--r1);
 }
 input[type="submit"]:hover {
     background-color: white;
