@@ -61,6 +61,8 @@
     color: var(--y1);
 }
 
+
+
 #current
 {
     color: var(--r1);
@@ -78,9 +80,39 @@
     width: 1400px;
 }
 
+#footer
+{
+    height: 200px;
+    background-color: var(--r1);
+    padding: auto 0;
+    color: #fff;
+}
+
+#footer-text
+{
+    margin-left: auto;
+    margin-right: auto; 
+    box-sizing: border-box;
+    width: 1400px;
+    padding-top: 10px;
+}
+
+.column
+{
+    float: left;
+    width: -webkit-calc(50% - 30px);
+    flex-wrap: wrap;
+    text-wrap: wrap;
+    margin-bottom: 30px;
+}
+
 @media screen and (max-width: 1500px) {
     #feed {
        width: -webkit-calc(100% - 100px);
+    }
+    #footer-text
+    {
+        width: -webkit-calc(100% - 100px);
     }
 }
 

@@ -73,7 +73,7 @@
 
 h1
 {
-    font-size: 80px;
+    font-size: 60px;
     color: var(--b1);
 }
 
@@ -110,6 +110,23 @@ h3
     border-bottom-right-radius: 0px;
 }
 
+#footer
+{
+    height: 200px;
+    background-color: var(--r1);
+    padding: auto 0;
+    color: #fff;
+}
+
+#footer-text
+{
+    margin-left: auto;
+    margin-right: auto; 
+    box-sizing: border-box;
+    width: 1400px;
+    padding-top: 10px;
+}
+
 @media screen and (max-width: 1000px) {
     #addproblem {
        width: -webkit-calc(100% - 100px);
@@ -117,6 +134,10 @@ h3
     #latex_code
     {    
         max-width: -webkit-calc(100%);
+    }
+    #footer-text
+    {
+        width: -webkit-calc(100% - 100px);
     }
 }
 
