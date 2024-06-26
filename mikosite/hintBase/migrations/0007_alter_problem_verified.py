@@ -2,7 +2,7 @@
 
 from django.db import migrations, models
 
-
+#d
 class Migration(migrations.Migration):
 
     dependencies = [
