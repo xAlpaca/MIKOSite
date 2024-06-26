@@ -79,14 +79,14 @@ h1
 
 h2
 {
-    font-size: 30px;
+    font-size: 26px;
     color: var(--b1);
     margin-bottom: 10px;
 }
 
 h3
 {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 400;
     color: var(--b1);
 }
@@ -172,7 +172,7 @@ input[type="number"] {
     border-right: 0px;
     border-left: 0px;
     border-radius: 5px;
-    width: 80px;
+    width: 100%;
     height: 40px;
     display: flex;
     padding-left: 15px;

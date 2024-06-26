@@ -11,6 +11,7 @@
     --y1: #F2B544;
     --w1: #ffffff;
     --bcg: #f0faff;
+    /* --bcg: #ffffff; */
   }
 
 .navbar {
@@ -76,7 +77,6 @@ h1
     font-size: 60px;
     color: var(--b1);
     margin-bottom: 20px;
-    margin-top: 10px;
 }
 
 h2
@@ -102,8 +102,8 @@ hr
 .container {
     width: 500px;
     margin: 0 auto;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    border: 1px solid var(--b1);
+    border-radius: 20px;
     padding: 30px;
     margin-top: 50px;
 }
@@ -128,8 +128,10 @@ input[type="password"] {
     display: block;
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
+    border: 0;
+    border-bottom: 1px solid var(--b1);
+    border-radius: 5px;
+    background-color: var(--bcg);
 }
 
 span {
@@ -139,16 +141,28 @@ span {
     border: 0;
     border-bottom: 1px solid var(--b1);
     border-radius: 5px;
+    background-color: #fff;
 }
 
 button {
-    background-color: #4CAF50;
-    color: white;
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-end;
+    background-color: var(--r1);
+    color: #fff;
     padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 20px;
     cursor: pointer;
-    margin-top: 15px;
+    border: 2px solid var(--r1);
+    margin-left: 15px;
+}
+
+button:hover
+{    
+    background-color: white;
+    color: var(--r1);
+    border: 2px solid var(--r1);
 }
 
 .messages {
@@ -162,4 +176,29 @@ button {
     border: 1px solid #ddd;
     border-radius: 3px;
     margin-bottom: 5px;
+}
+
+#buttons
+{
+    display: flex;
+    justify-content: flex-end;
+}
+
+label
+{
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 20px;
+    color: var(--b1);
+}
+
+.input
+{
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: 0;
+    border-bottom: 1px solid var(--b1);
+    border-radius: 5px;
+    background-color: var(--bcg);
 }
