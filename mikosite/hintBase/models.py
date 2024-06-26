@@ -16,7 +16,7 @@ class Problem(models.Model):
     )
     date = models.DateField(blank=True, null=True)
     time = models.TimeField(blank=True, null=True) 
-    verified = models.BooleanField(default=False)
+    verified = models.BooleanField(default=False, blank=True, null=True)
 
 
     tags = TaggableManager()
