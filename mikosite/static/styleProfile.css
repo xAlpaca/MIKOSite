@@ -1,20 +1,117 @@
-body {
-    font-family: sans-serif;
+* {
     margin: 0;
-    padding: 20px;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --b1: #074A59;
+    --b2: #06313E;
+    --r1: #F24535;
+    --y1: #F2B544;
+    --w1: #ffffff;
+    --bcg: #f0faff;
+  }
+
+.navbar {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    background-color: #fff;
+    height: 80px; 
+    padding-right: 50px; 
+    padding-left: 50px; 
+    border-bottom: 1px solid var(--b1); 
+}
+
+.navbar a {
+    color: var(--b1);
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.navbar-left {
+    margin-right: auto; 
+}
+
+.navbar-center {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+.navbar-right {
+    margin-left: auto; 
+}
+.navbar-center li {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-center li + li::before {
+    content: "|";
+    color: 06313E;
+    font-weight: 900;
+    margin: 20px 20px; 
+}
+
+.navbar a:hover {
+    color: var(--y1);
+}
+
+#current
+{
+    color: var(--r1);
+}
+#current:hover
+{
+    color: var(--y1);
+}
+
+h1
+{
+    font-size: 60px;
+    color: var(--b1);
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+h2
+{
+    font-size: 44px;
+    color: var(--y1);
+}
+
+h3
+{
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--b1);
+}
+
+hr
+{
+    color: var(--b1);
+    background-color: var(--b1);
+    height: 3px;
 }
 
 .container {
-    max-width: 500px;
+    width: 500px;
     margin: 0 auto;
     border: 1px solid #ddd;
     border-radius: 5px;
-    padding: 20px;
+    padding: 30px;
+    margin-top: 50px;
 }
 
-h1 {
-    text-align: center;
-    margin-bottom: 20px;
+@media screen and (max-width: 600px) {
+    .container {
+       width: -webkit-calc(100% - 100px);
+    }
 }
 
 .field {
@@ -39,8 +136,9 @@ span {
     display: block;
     width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 3px;
+    border: 0;
+    border-bottom: 1px solid var(--b1);
+    border-radius: 5px;
 }
 
 button {

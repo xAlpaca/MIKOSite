@@ -9,8 +9,25 @@
     <link rel="stylesheet" href="{% static 'styleProfile.css' %}">
 </head>
 <body>
+    <header>
+        <nav class="navbar">
+            <div class="navbar-left">
+                <img src="{% static 'LOGO_HEADER.png' %}" alt="Logo" style="height: 80px;">
+            </div>
+            <ul class="navbar-center">
+                <li><a href="/">HOME</a></li>
+                <li><a href="/bazahintow">BAZA ZADAŃ</a></li>
+                <li><a href="/bazahintow/addproblem">DODAJ ZADANIE</a></li>
+                <li><a href="/about">O NAS</a></li>
+            </ul>
+            <div class="navbar-right">
+                <a id="current"  href="/profile">PROFIL</a>
+            </div>
+        </nav>
+    </header>
+
     <div class="container">
-        <h1>Profile Information</h1>
+        <h1>Profil</h1>
         <form action="" method="post">
             {% csrf_token %}
 
