@@ -10,7 +10,12 @@
     --r1: #F24535;
     --y1: #F2B544;
     --w1: #ffffff;
-  }
+}
+
+body {
+    font-family: "Rubik", sans-serif;
+    font-optical-sizing: auto;
+}
 
 .navbar {
     display: flex;

@@ -12,6 +12,11 @@
     --w1: #ffffff;
   }
 
+  body {
+    font-family: "Rubik", sans-serif;
+    font-optical-sizing: auto;
+}
+
 .navbar {
     display: flex;
     justify-content: center; 
