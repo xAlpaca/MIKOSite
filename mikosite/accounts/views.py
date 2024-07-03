@@ -165,7 +165,7 @@ def signout(request):
 @login_required(login_url='../signin')
 def zarzadzanie(request):
     messages={}
-    
+
     if request.user.groups.filter(name='Moderator').exists() == False:
         return redirect("/")
     if request.method == 'POST':
@@ -198,13 +198,13 @@ def zarzadzanie(request):
             text_field_1=text_field_1,
             text_field_2=text_field_2,
         )
-        
+
         post.save()
         post.authors.set(authors)
         # If file is uploaded, save it
         if file:
             post.file = file
-            
+
         # If images are uploaded, save them
         if images:
             for image in images:

@@ -28,7 +28,6 @@
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
         integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
         onload="renderMathInElement(document.body);"></script>
-    <script src="{% static 'hintBase/viewproblemScript.js' %}"></script>
     <title>View Problem</title>
 </head>
 
@@ -95,30 +94,28 @@
         </div>
         <div id="hints-container">
             <div id="hint-title">
-                <!-- TODO dodac w nawiasie ile jest rozwiazan -->
-                <h3>Rozwiązania ()</h3>
+                <h3>Rozwiązania ({{ hinty|length }})</h3>
             </div>
             <br>
+            {% for hintIntance in hinty %}
             <div class="solution">
                 <!-- TODO zrobic jakos numeracje tych rozwiazan i wstawić w h4 ktore to -->
                 <h4>Rozwiązanie </h4>
-                {% for hintIntance in hinty %}
-
-
 
                 {% with hintIntance.hints|linebreaks as splittedhints %}
                 <!-- TODO numeracje podpowiedzi tez mozna tak samo jak wyzej, pk mozesz dac czy jak wolisz -->
-                <div class="clue">Podpowiedź :{{ splittedhints }}</div>
+                <div class="clue" id="latex-container">Podpowiedź : {{ splittedhints }} </div>
                 {% endwith %}
 
 
-                <div class="clue"> Pełne rozwiązanie:{{hintIntance.latex_solution }} </div>
+                <div class="clue"> Pełne rozwiązanie: <br>{{ hintIntance.latex_solution }} </div>
 
                 <div class="clue">Autor rozwiązania/(rozwiązanie dodał):{{ hintIntance.author.username }}</div>
             </div>
-
-
+            <br>
             {% endfor %}
+
+
             {% if user.is_authenticated %}
             <a href="./add_solution">Dodaj rozwiązanie</a>
             {% endif %}
@@ -146,3 +143,5 @@
 </body>
 
 </html>
+
+<script src="{% static 'hintBase/viewproblemScript.js' %}"></script>

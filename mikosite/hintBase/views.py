@@ -140,6 +140,9 @@ def addproblem(request):
         problem.tags.add(*selected_tags)
         problem.save()
 
+        request.user.problem_counter += 1
+        request.user.save()
+
         return render(request, 'addproblem.html', {
             "custom_message": f"Zadanie zostało dodane, id zadania: {problem.problem_id}",
             "confirm_key": "False",
@@ -157,6 +160,8 @@ def view_problem(request, problem_id):
     problem = get_object_or_404(Problem, problem_id=problem_id)
     hinty = ProblemHint.objects.filter(problem=problem, verified=True)
 
+    for i in hinty:
+        print(i)
     return render(request, 'viewproblem.html', {
         "problem": problem,
         "user": request.user,

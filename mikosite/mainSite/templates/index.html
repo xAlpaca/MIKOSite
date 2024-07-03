@@ -50,9 +50,9 @@
                     <div class="post">
                         <h2 id="post_title">{{ post.title }}</h2>
                         <h3 id="post_subtitle" style="margin-bottom: 20px;">{{ post.subtitle }}</h3>
-                        <p><strong>Aoutor/autorzy:</strong> 
+                        <p><strong>Autor/autorzy:</strong>
                             {% for author in post.authors.all %}
-                                {{ author.name }}{% if not forloop.last %}; {% endif %}
+                                {{ author.name }} {{ author.surname }} {% if not forloop.last %}; {% endif %}
                             {% endfor %}
                         </p>
                         <p><strong>Date:</strong> {{ post.date }}</p>
@@ -64,7 +64,7 @@
                             {% if post.file %}
                                 <a href="{{ post.file.url }}">Download</a>
                             {% else %}
-                                No file available
+
                             {% endif %}
                         </p>
                         <div class="images">
