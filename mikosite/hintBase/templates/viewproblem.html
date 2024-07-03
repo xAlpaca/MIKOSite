@@ -54,8 +54,21 @@
         <div id="title">
             <div class="problem-title-box">
                 <h1>Zadanie {{ problem.problem_id }}</h1>
+
             </div>
+
             <div class="problem-title-box">
+
+            {% if is_admin %}
+                <form method="post" enctype="multipart/form-data" onsubmit="return confirm('Jeśli jesteś adminem: Na pewno chcesz usunąc zadanie?');">
+                {% csrf_token %}
+               <!-- Przycisk usuwania zadania, trzeba go tak postawić, żeby wyglądał w miarę sensowanie (NA DOLE strony
+                )bo zadań w ogólności nie usuwamy, nawet jeśli użytkownik usunął kont-->
+                <button type="submit" name="delete_problem">Usuń zadanie
+                </button>
+                </form>
+            {% endif %}
+
                 <div class="problem-main-details">
                     <h2>Zadanie dodał/a:
                         {% if proben.author != "" %}
@@ -77,7 +90,6 @@
             </h2>
             <h2>
                 {% if problem.image %}
-
             </h2>
             <img src="{{ problem.image.url }}" alt="Problem Image">
             {% endif %}
@@ -99,12 +111,11 @@
             <br>
             {% for hintIntance in hinty %}
             <div class="solution">
-                <!-- TODO zrobic jakos numeracje tych rozwiazan i wstawić w h4 ktore to -->
-                <h4>Rozwiązanie </h4>
+                <h4>Rozwiązanie {{ forloop.counter }}</h4>
 
                 {% with hintIntance.hints|linebreaks as splittedhints %}
                 <!-- TODO numeracje podpowiedzi tez mozna tak samo jak wyzej, pk mozesz dac czy jak wolisz -->
-                <div class="clue" id="latex-container">Podpowiedź : {{ splittedhints }} </div>
+                <div class="clue" id="latex-container">Podpowiedź {{ forloop.counter }} : <br> {{ splittedhints }} </div>
                 {% endwith %}
 
 

@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from mainSite.models import Post
-
+from hintBase.models import Problem, ProblemHint
 
 
 # Create your views here.
@@ -136,6 +136,26 @@ def profile(request):
     messages["user_belongs_to_moderator_group"] = user_belongs_to_moderator_group
     return render(request, "profile.html", messages)
 
+def public_profile(request, username):
+    user = User.objects.get(username=username)
+
+    parameters_to_pass = {}
+
+    _username = username
+    name = user.name
+    surname = user.surname
+    user_problems = Problem.objects.filter(author=user)
+    user_hints = ProblemHint.objects.filter(author=user)
+
+    parameters_to_pass["problems"] = user_problems
+    parameters_to_pass["hints_ids"] = [hint.problem.problem_id for hint in user_hints]
+    parameters_to_pass["surname"] = surname
+    parameters_to_pass["name"] = name
+    parameters_to_pass["username"] = _username
+
+    return render(request, "publicprofile.html", parameters_to_pass)
+
+
 @login_required(login_url='../signin')
 def change_password(request):
     if request.method == 'POST':
@@ -165,10 +185,27 @@ def signout(request):
 @login_required(login_url='../signin')
 def zarzadzanie(request):
     messages={}
+    all_users = User.objects.all()
+    moderator_group = Group.objects.get(name='Moderator')
+    moderator_users = moderator_group.user_set.all()
 
-    if request.user.groups.filter(name='Moderator').exists() == False:
+    if request.user.is_staff == False:
         return redirect("/")
     if request.method == 'POST':
+
+        if request.POST.get("delete") == "True":
+            username = request.POST.get("user_username")
+            try:
+                user_to_delete =User.objects.get(username=username)
+            except:
+                return render(request, "zarzadzanie.html", {'all_users': all_users, 'moderator_users': moderator_users,
+                                                            "custom_message": f"Konto o podanej nazwie użytkownika nie istnieje"})
+
+            print(user_to_delete)
+            user_to_delete.delete()
+            return render(request, "zarzadzanie.html", {'all_users': all_users, 'moderator_users': moderator_users,
+                                                        "custom_message": f"Usunęto konto {user_to_delete}"})
+
         if request.POST.get('title') == '':
             request.session['custom_message'] = "Tytuł nie może być pusty"
             return redirect("/zarzadzanie/")
@@ -214,9 +251,6 @@ def zarzadzanie(request):
         request.session['custom_message'] = "Post został utworzony"
         return redirect('/zarzadzanie/')
 
-    all_users = User.objects.all()
-    moderator_group = Group.objects.get(name='Moderator')
-    moderator_users = moderator_group.user_set.all()
-    print("nie działa")
+
     return render(request, "zarzadzanie.html", {'all_users': all_users, 'moderator_users': moderator_users})
     

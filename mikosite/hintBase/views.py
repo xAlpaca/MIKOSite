@@ -159,13 +159,20 @@ def addproblem(request):
 def view_problem(request, problem_id):
     problem = get_object_or_404(Problem, problem_id=problem_id)
     hinty = ProblemHint.objects.filter(problem=problem, verified=True)
+    is_admin = request.user.is_superuser
 
     for i in hinty:
-        print(i)
+        print(i.latex_solution)
+
+    if request.method == "POST":
+        if is_admin==True:
+            problem.delete()
+            return redirect("/bazahintow/")
     return render(request, 'viewproblem.html', {
         "problem": problem,
         "user": request.user,
-        "hinty": hinty
+        "hinty": hinty,
+        "is_admin": is_admin
     })
 
 
