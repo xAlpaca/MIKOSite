@@ -52,7 +52,7 @@
                         <h3 id="post_subtitle" style="margin-bottom: 20px;">{{ post.subtitle }}</h3>
                         <p><strong>Autor/autorzy:</strong>
                             {% for author in post.authors.all %}
-                                {{ author.name }} {{ author.surname }} {% if not forloop.last %}; {% endif %}
+                                <a href="/publicprofile/{{ author.username }}">{{ author.name }} {{ author.surname }}</a> {% if not forloop.last %}; {% endif %}
                             {% endfor %}
                         </p>
                         <p><strong>Date:</strong> {{ post.date }}</p>

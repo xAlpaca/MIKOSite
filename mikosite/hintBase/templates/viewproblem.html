@@ -63,7 +63,7 @@
                 <form method="post" enctype="multipart/form-data" onsubmit="return confirm('Jeśli jesteś adminem: Na pewno chcesz usunąc zadanie?');">
                 {% csrf_token %}
                <!-- Przycisk usuwania zadania, trzeba go tak postawić, żeby wyglądał w miarę sensowanie (NA DOLE strony
-                )bo zadań w ogólności nie usuwamy, nawet jeśli użytkownik usunął kont-->
+                )bo zadań w ogólności nie usuwamy, nawet jeśli użytkownik usunął konto-->
                 <button type="submit" name="delete_problem">Usuń zadanie
                 </button>
                 </form>
@@ -72,7 +72,7 @@
                 <div class="problem-main-details">
                     <h2>Zadanie dodał/a:
                         {% if proben.author != "" %}
-                        {{ problem.author.username }}
+                            <a href="/publicprofile/{{ problem.author.username }}">{{ problem.author.username }} ({{ problem.author.name }} {{ problem.author.surname }})</a>
                         {% endif %}</h2>
                 </div>
                 <div class="problem-main-details">

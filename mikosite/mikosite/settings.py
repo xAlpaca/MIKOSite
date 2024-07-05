@@ -45,10 +45,11 @@ INSTALLED_APPS = [
     "mainSite",
     "hintBase",
     "taggit",
-    "formtools"
+    "formtools",
+    "kolomat",
 ]
 
-
+USE_L10N = True
 TAGGIT_CASE_INSENSITIVE = True
 
 

@@ -1,0 +1,30 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'informacje.css' %}">
+    <script defer src="{% static 'informacje.js' %}"></script>
+</head>
+<body>
+<div class="calendar">
+    <div class="header">
+        <button id="prevMonth">&lt;</button>
+        <h2 id="currentMonth"></h2>
+        <button id="nextMonth">&gt;</button>
+    </div>
+    <div class="days" id="calendarDays"></div>
+</div>
+
+<div id="eventPopup" class="event-popup">
+    <div class="popup-content">
+        <span class="close-btn">&times;</span>
+        <h3 id="popupDate"></h3>
+        <ul id="eventList"></ul>
+    </div>
+</div>
+
+</body>
+</html>
