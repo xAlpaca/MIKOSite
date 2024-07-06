@@ -1,3 +1,4 @@
+
 const currentMonthElement = document.getElementById('currentMonth');
 const calendarDaysElement = document.getElementById('calendarDays');
 const prevMonthButton = document.getElementById('prevMonth');
@@ -10,12 +11,12 @@ const closeBtn = document.querySelector('.close-btn');
 let currentDate = new Date();
 let events = {};
 
-function addEvent(date, eventName) {
-    const key = date.toDateString();
+function addEvent(eventDetails) {
+    const key = eventDetails.date.toDateString();
     if (!events[key]) {
         events[key] = [];
     }
-    events[key].push(eventName);
+    events[key].push(eventDetails);
 }
 
 function updateCalendar() {
@@ -42,8 +43,11 @@ function updateCalendar() {
 
     for (let day = 1; day <= lastDayOfMonth.getDate(); day++) {
         const dayElement = document.createElement('div');
-        dayElement.textContent = day;
-
+        const linkElement = document.createElement('a');
+        linkElement.textContent = day;
+        linkElement.className = "day-number";
+        dayElement.appendChild(linkElement);
+        dayElement.className = "day-nuberw"
         const currentDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
         const key = currentDay.toDateString();
 
@@ -73,15 +77,52 @@ function updateCalendar() {
 }
 
 function showEventPopup(date, eventsList) {
+    const warsawTime = new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Warsaw' }));
+
+
     popupDate.textContent = date.toLocaleDateString('pl', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     eventList.innerHTML = '';
     eventsList.forEach(event => {
         const li = document.createElement('li');
-        li.textContent = event;
+        const eventStatus = determineEventStatus(event, warsawTime);
+
+        li.innerHTML = `
+            <strong>Temat: ${event.theme || 'Brak.'}</strong><br>
+            Początek zajęć: ${event.time ? event.time.toLocaleTimeString() : 'Not specified'}<br>
+            Czas trwania zajęć: ${event.duration ? `${event.duration.hours}h ${event.duration.minutes}m` : 'Not specified'}<br>
+            Prowadzący/a: ${event.tutors.join(', ') || 'None'}<br>
+            Opis: ${event.description || 'No description'}<br>
+            Poziom zaawansowania: ${event.level !== null ? event.level : 'dowolny'}<br>
+            Status: ${eventStatus}<br>
+            ${event.image ? `<img src="/media/${event.image}" alt="Event image" style="max-width: 100px;">` : ''}
+            ${event.file ? `<a href="$/media/{event.file}" download>Download attached file</a>` : ''}
+        `;
         eventList.appendChild(li);
     });
+
     eventPopup.style.display = 'block';
 }
+function determineEventStatus(event, currentWarsawDate) {
+    if (!event.time) {
+        return 'Nie określono';
+    }
+    const eventStartTime = new Date(event.date.getTime());
+    eventStartTime.setHours(event.time.getHours(), event.time.getMinutes(), event.time.getSeconds());
+
+    const eventEndTime = new Date(eventStartTime.getTime());
+    if (event.duration) {
+        eventEndTime.setHours(eventEndTime.getHours() + event.duration.hours, eventEndTime.getMinutes() + event.duration.minutes);
+    }
+
+    if (currentWarsawDate < eventStartTime) {
+        return 'Nie odbyło się';
+    } else if (currentWarsawDate >= eventStartTime && currentWarsawDate <= eventEndTime) {
+        return 'W trakcie';
+    } else {
+        return 'Odbyło się';
+    }
+}
+
 
 closeBtn.onclick = function() {
     eventPopup.style.display = 'none';
@@ -103,8 +144,6 @@ nextMonthButton.addEventListener('click', () => {
     updateCalendar();
 });
 
-// Example usage of addEvent function
-addEvent(new Date(2024, 6, 10), "Meeting with team");
-addEvent(new Date(2024, 6, 15), "Kółko matematyczne, wielomiany. ");
+
 
 updateCalendar();

@@ -26,5 +26,28 @@
     </div>
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        {% for kolo in kolka %}
+            addEvent({
+                date: new Date("{{ kolo.date|date:'Y-m-d' }}"),
+                time: new Date("{{ kolo.date|date:'Y-m-d' }}T{{ kolo.time|time:'H:i' }}"),
+                duration: {
+                    hours: Math.floor({{ kolo.duration.total_seconds }} / 3600),
+                    minutes: Math.floor(({{ kolo.duration.total_seconds }} % 3600) / 60)
+                },
+                tutors: [{% for tutor in kolo.tutors.all %}"{{ tutor.username }}"{% if not forloop.last %}, {% endif %}{% endfor %}],
+                theme: "{{ kolo.theme|escapejs }}",
+                description: "{{ kolo.description|escapejs }}",
+                image: "{{ kolo.image }}",
+                file: "{{ kolo.file }}",
+                level: {{ kolo.level|default_if_none:"null" }},
+                finished: {{ kolo.finished|yesno:"true,false" }}
+            });
+        {% endfor %}
+        updateCalendar();
+    });
+</script>
+
 </body>
 </html>

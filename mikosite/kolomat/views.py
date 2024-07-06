@@ -19,5 +19,7 @@ import pytz
 def informacje(request):
     kolka = Kolo.objects.all()
 
+    for i in kolka:
+        print(i.date)
 
-    return render(request, "informacje.html")
+    return render(request, "informacje.html", {"kolka": kolka})

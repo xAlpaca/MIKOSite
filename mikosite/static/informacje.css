@@ -36,19 +36,32 @@ body, html {
     margin: 0;
 }
 .days {
+    padding: 10px;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 1px;
+    /*gap: 1px;*/
     flex-grow: 1;
-    background-color: #ffffff;
+    background-color: #f0b443;
 }
 .days div {
+    margin: 2px;
+    border: 10px;
+    border-color: #0d7e8b;
     background-color: #f0b443;
+    border-radius: 5px ;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 18px;
 }
+
+.days div:hover {
+    z-index: 99;
+    transition: ease-in, 0.3s;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);  /* Glowing effect */
+
+}
+
 .days .day-name {
     font-weight: bold;
     background-color: #f0b443;
@@ -64,19 +77,20 @@ body, html {
 
 .event-indicator {
     position: absolute;
-    bottom: 2px;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
-    width: 6px;
-    height: 6px;
-    background-color: #ff4081;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(20, 57, 253, 0.33);
     border-radius: 50%;
+    transform: translate(-50%, -50%);
+
 }
 
 .event-popup {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 999;
     left: 0;
     top: 0;
     width: 100%;
@@ -118,3 +132,8 @@ body, html {
 #eventList {
     padding-left: 20px;
 }
+
+.day-number {
+    z-index: 2;
+}
+

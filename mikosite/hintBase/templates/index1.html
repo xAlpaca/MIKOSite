@@ -19,9 +19,9 @@
             </div>
             <ul class="navbar-center">
                 <li><a href="/">HOME</a></li>
-                <li><a id="current"  href="/bazahintow">BAZA ZADAŃ</a></li>
-                <li><a href="/bazahintow/addproblem">DODAJ ZADANIE</a></li>
+                <li><a href="/kolomatematyczne">KOŁO MATEMATYCZNE</a></li>
                 <li><a href="/about">O NAS</a></li>
+                <li><a id="current"  href="/bazahintow">BAZA ZADAŃ</a></li>
             </ul>
             <div class="navbar-right">
                 <a href="/profile">PROFIL</a>
@@ -33,6 +33,9 @@
 
 
     <h1> Baza zadań</h1>
+    <br>
+    <h2 style="text-align: center"><a href="/bazahintow/addproblem" style="text-decoration: none; color: red;">DODAJ ZADANIE</a></h2>
+
     <hr>
     <form method="POST" id= "filter-form" action=''>
         {% csrf_token %}
