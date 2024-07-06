@@ -67,7 +67,7 @@ body, html {
 .days .day-name {
     font-weight: bold;
     background-color: #f0b443;
-    color: #333;
+    color: #ffffff;
 }
 .days .current-day {
     background-color: #f04435;
@@ -75,7 +75,9 @@ body, html {
 .event-day {
     position: relative;
 }
-
+#currentMonth{
+    color: white;
+}
 .event-indicator {
     position: absolute;
     top: 50%;
@@ -113,7 +115,9 @@ body, html {
 
 .day-number{
     color: whitesmoke;
+    font-weight: bold;
 }
+
 
 .close-btn {
     color: #aaa;

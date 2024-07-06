@@ -85,6 +85,7 @@ function showEventPopup(date, eventsList) {
     eventsList.forEach(event => {
         const li = document.createElement('li');
         const eventStatus = determineEventStatus(event, warsawTime);
+        const levelName = getLevelName(event.level);
 
         li.innerHTML = `
             <strong>Temat: ${event.theme || 'Brak.'}</strong><br>
@@ -92,7 +93,7 @@ function showEventPopup(date, eventsList) {
             Czas trwania zajęć: ${event.duration ? `${event.duration.hours}h ${event.duration.minutes}m` : 'Not specified'}<br>
             Prowadzący/a: ${event.tutors.join(', ') || 'None'}<br>
             Opis: ${event.description || 'No description'}<br>
-            Poziom zaawansowania: ${event.level !== null ? event.level : 'dowolny'}<br>
+            Poziom zaawansowania: ${levelName}<br>
             Status: ${eventStatus}<br>
             ${event.image ? `<img src="/media/${event.image}" alt="Event image" style="max-width: 100px;">` : ''}
             ${event.file ? `<a href="$/media/{event.file}" download>Download attached file</a>` : ''}
@@ -102,6 +103,21 @@ function showEventPopup(date, eventsList) {
 
     eventPopup.style.display = 'block';
 }
+
+function getLevelName(level) {
+        switch(level) {
+            case 0:
+                return 'Grupa początkująca';
+            case 1:
+                return 'Grupa średnia';
+            case 2:
+                return 'Grupa Finał++';
+            case 3:
+                return 'Poziom olimpiad międzynarodowych';
+            default:
+                return 'Brak poziomu zaawansowania';
+        }
+    }
 function determineEventStatus(event, currentWarsawDate) {
     if (!event.time) {
         return 'Nie określono';

@@ -163,9 +163,12 @@ h2 {
 
 
 #latex-container {
+    background-color: rgba(182, 182, 182, 0.37);
+    border-radius: 5px;
+    border: 1px solid #949494;
+    padding: 10px;
     font-size: 20px;
     margin-top: 10px;
-    background-color: #fff;
     color: #06313E;
 }
 
@@ -217,3 +220,67 @@ img {
     font-size: 30px;
     font-weight: 500;
 }
+.spoiler {
+  background: #333333;
+  border-radius: 0.2em;
+  color: transparent;
+}
+.spoiler:hover {
+  background: transparent;
+  color: inherit;
+    transition: ease-in 0.2s;
+
+}
+
+
+.difficulty-rating {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+}
+
+.difficulty-rating form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.difficulty-rating label {
+    font-weight: bold;
+}
+
+.difficulty-rating select {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.difficulty-rating button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.difficulty-rating button:hover {
+    background-color: #0056b3;
+}
+
+.average-rating {
+    margin-top: 10px;
+    font-style: italic;
+}
+
+.average-rating a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.average-rating a:hover {
+    text-decoration: underline;
+}
+

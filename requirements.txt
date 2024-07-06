@@ -5,3 +5,4 @@ fuzzywuzzy
 Pillow
 python-Levenshtein
 pytz
+django-redis

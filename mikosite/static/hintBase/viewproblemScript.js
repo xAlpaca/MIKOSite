@@ -44,3 +44,12 @@ window.addEventListener('DOMContentLoaded', () => {
             console.error('Error rendering math in element:', clueElements[i], error);
         }
 });
+
+document.addEventListener('click', function(event) {
+    if (!event.target.classList.contains('clue')) {
+      var spoilers = document.getElementsByClassName('clue');
+      for (var i = 0; i < spoilers.length; i++) {
+        spoilers[i].classList.remove('revealed');
+      }
+    }
+  });

@@ -40,9 +40,10 @@
             </div>
             <ul class="navbar-center">
                 <li><a href="/">HOME</a></li>
-                <li><a id="current" href="/bazahintow">BAZA ZADAŃ</a></li>
-                <li><a href="/bazahintow/addproblem">DODAJ ZADANIE</a></li>
+                <li><a href="/kolomatematyczne">KOŁO MATEMATYCZNE</a></li>
                 <li><a href="/about">O NAS</a></li>
+                <li><a href="/bazahintow/addproblem">DODAJ ZADANIE</a></li>
+                <li><a href="/bazahintow">BAZA ZADAŃ</a></li>
             </ul>
             <div class="navbar-right">
                 <a href="/profile">PROFIL</a>
@@ -58,17 +59,6 @@
             </div>
 
             <div class="problem-title-box">
-
-            {% if is_admin %}
-                <form method="post" enctype="multipart/form-data" onsubmit="return confirm('Jeśli jesteś adminem: Na pewno chcesz usunąc zadanie?');">
-                {% csrf_token %}
-               <!-- Przycisk usuwania zadania, trzeba go tak postawić, żeby wyglądał w miarę sensowanie (NA DOLE strony
-                )bo zadań w ogólności nie usuwamy, nawet jeśli użytkownik usunął konto-->
-                <button type="submit" name="delete_problem">Usuń zadanie
-                </button>
-                </form>
-            {% endif %}
-
                 <div class="problem-main-details">
                     <h2>Zadanie dodał/a:
                         {% if proben.author != "" %}
@@ -76,6 +66,7 @@
                         {% endif %}</h2>
                 </div>
                 <div class="problem-main-details">
+                    <h2> Trudność: {{ problem.difficulty }}</h2>
                     <h2> Trudność: {{ problem.difficulty }}</h2>
                 </div>
             </div>
@@ -97,29 +88,52 @@
             <hr style="
             color: var(--b1);
             background-color: var(--b1);
-            height: 1px; width: 120px; border: 0; margin-top: 40px; ">
+            height: 1px; width: 100%; border: 0; margin-top: 40px; ">
             <div id="latex-container">
                 {{ problem.latex_code }}
             </div>
+            <div class="difficulty-rating">
+                <form method="post">
+                    {% csrf_token %}
+                    <label for="difficulty">Oceń trudność zadania (1-10):</label>
+                    <select name="difficulty" id="difficulty">
+                        {% for i in "123456789" %}
+                            <option value="{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                        <option value="10">10</option>
+                    </select>
+                    <button type="submit">Wyślij</button>
+                </form>
+            </div>
 
+            <!-- Display average rating -->
+            <div class="average-rating">
+                <p>Średnia z ocen trudności tego zadania: <a href="#">{{ rating }}</a></p>
+            </div>
 
         </div>
         <div id="hints-container">
             <div id="hint-title">
                 <h3>Rozwiązania ({{ hinty|length }})</h3>
+                <br>
+                {% if user.is_authenticated %}
+                    <h2><a href="./add_solution" style="text-decoration: none; color: #ff5540">Dodaj rozwiązanie</a></h2>
+                {% endif %}
             </div>
+
             <br>
             {% for hintIntance in hinty %}
             <div class="solution">
                 <h4>Rozwiązanie {{ forloop.counter }}</h4>
 
-                {% with hintIntance.hints|linebreaks as splittedhints %}
-                <!-- TODO numeracje podpowiedzi tez mozna tak samo jak wyzej, pk mozesz dac czy jak wolisz -->
-                <div class="clue" id="latex-container">Podpowiedź {{ forloop.counter }} : <br> {{ splittedhints }} </div>
-                {% endwith %}
+
+                {% for line in hintIntance.hints.splitlines %}
+                    <div class="clue" id="latex-container" >
+                        Podpowiedź {{ forloop.counter }}: <br> <a class="spoiler" style="display: block; width: 100%">{{ line }}</a> </div>
+                {% endfor %}
 
 
-                <div class="clue"> Pełne rozwiązanie: <br>{{ hintIntance.latex_solution }} </div>
+                <div class="clue" id="latex-container"> Pełne rozwiązanie: <br><a class ="spoiler" style="display: block; width: 100%">{{ hintIntance.latex_solution }}</a> </div>
 
                 <div class="clue">Autor rozwiązania/(rozwiązanie dodał):{{ hintIntance.author.username }}</div>
             </div>
@@ -129,11 +143,24 @@
 
             {% if user.is_authenticated %}
             <a href="./add_solution">Dodaj rozwiązanie</a>
+
+                {% if is_admin %}
+                <form method="post" enctype="multipart/form-data" onsubmit="return confirm('Jeśli jesteś adminem: Na pewno chcesz usunąc zadanie?');">
+                {% csrf_token %}
+               <!-- Przycisk usuwania zadania, trzeba go tak postawić, żeby wyglądał w miarę sensowanie (NA DOLE strony
+                )bo zadań w ogólności nie usuwamy, nawet jeśli użytkownik usunął konto-->
+                    <input type="hidden" name="delhandeler";value="delete">
+                <button type="submit" name="delete_problem">Usuń zadanie</button>
+                </form>
+            {% endif %}
             {% endif %}
 
         </div>
     </div>
+
 </div>
+
+
 
     
 <footer id="footer">

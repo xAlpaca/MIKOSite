@@ -7,7 +7,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tasks Page</title>
 <link rel="stylesheet" href="{% static 'hintbaseindexStyle.css' %}">
-<script defer src="{% static 'hintbaseindexScript.js' %}"></script>
 
 </head>
 <body>
@@ -21,6 +20,7 @@
                 <li><a href="/">HOME</a></li>
                 <li><a href="/kolomatematyczne">KOŁO MATEMATYCZNE</a></li>
                 <li><a href="/about">O NAS</a></li>
+                <li><a href="/bazahintow/addproblem">DODAJ ZADANIE</a></li>
                 <li><a id="current"  href="/bazahintow">BAZA ZADAŃ</a></li>
             </ul>
             <div class="navbar-right">
@@ -33,26 +33,51 @@
 
 
     <h1> Baza zadań</h1>
-    <br>
-    <h2 style="text-align: center"><a href="/bazahintow/addproblem" style="text-decoration: none; color: red;">DODAJ ZADANIE</a></h2>
 
     <hr>
-    <form method="POST" id= "filter-form" action=''>
+   <div class="search-container">
+    <h2>Wyszukaj zadanie</h2>
+    <form method="POST" id="filter-form" action="">
         {% csrf_token %}
-        <label for="tags">Wybierz tagi:</label><br>
-        <select name="tags_to_filter" id="tags" multiple>
-            {% for tag in tags %}
-            <option value="{{ tag }}">{{ tag }}</option>
-            {% endfor %}
-        </select><br><br>
-        <label for="difficulty">Select Difficulty (1-10):</label><br>
-        <label> Max:</label>
-        <input type="range" id="difficulty_max" name="difficulty_max" min="1" max="10" value="10"> <label id="difficulty_max_display">10</label><br><br>
-        <label> Min:</label>
-        <input type="range" id="difficulty_min" name="difficulty_min" min="1" max="10" value="1"> <label id="difficulty_min_display">1</label><br><br>
-        
-        <input type="submit" value="Submit">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="tags">Tagi:</label>
+                <select name="tags_to_filter" id="tags" multiple>
+                    {% for tag in tags %}
+                        <option value="{{ tag }}">{{ tag }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="difficulty">Trudność:</label>
+                <div class="difficulty-selector">
+                    <button type="button" class="difficulty-btn" data-value="1">1</button>
+                    <button type="button" class="difficulty-btn" data-value="2">2</button>
+                    <button type="button" class="difficulty-btn" data-value="3">3</button>
+                    <button type="button" class="difficulty-btn" data-value="4">4</button>
+                    <button type="button" class="difficulty-btn" data-value="5">5</button>
+                    <button type="button" class="difficulty-btn" data-value="6">6</button>
+                    <button type="button" class="difficulty-btn" data-value="7">7</button>
+                    <button type="button" class="difficulty-btn" data-value="8">8</button>
+                    <button type="button" class="difficulty-btn" data-value="9">9</button>
+                    <button type="button" class="difficulty-btn" data-value="10">10</button>
+                </div>
+                <input type="hidden" id="difficulty" name="difficulty" value="">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group search-group">
+                <label for="search">Szukaj:</label>
+                <input type="text" id="search" name="search" placeholder="Wpisz słowo kluczowe...">
+            </div>
+            <div class="form-group submit-group">
+                <input type="submit" value="Szukaj">
+            </div>
+        </div>
     </form>
+</div>
+
+
     <br><br>
     {% for problem in all_problems %}
     <div class="problem-block">
@@ -103,9 +128,24 @@
     </div>
 </footer>
 <script>
-    function goBack() {
-        window.history.back();
+   document.addEventListener('DOMContentLoaded', function() {
+    const difficultyButtons = document.querySelectorAll('.difficulty-btn');
+    const difficultyInput = document.getElementById('difficulty');
+
+    difficultyButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            this.classList.toggle('active');
+            updateDifficultyInput();
+        });
+    });
+
+    function updateDifficultyInput() {
+        const selectedDifficulties = Array.from(difficultyButtons)
+            .filter(btn => btn.classList.contains('active'))
+            .map(btn => btn.dataset.value);
+        difficultyInput.value = selectedDifficulties.join(',');
     }
+});
 </script>
 </body>
 </html>
