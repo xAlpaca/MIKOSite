@@ -2,7 +2,8 @@ body, html {
     margin: 0;
     padding: 0;
     height: 100%;
-    font-family: Arial, sans-serif;
+    font-family: "Rubik", sans-serif;
+    font-optical-sizing: auto;
 
 }
 .calendar {
@@ -40,6 +41,7 @@ body, html {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     /*gap: 1px;*/
+
     flex-grow: 1;
     background-color: #f0b443;
 }
@@ -69,7 +71,6 @@ body, html {
 }
 .days .current-day {
     background-color: #f04435;
-    color: white;
 }
 .event-day {
     position: relative;
@@ -110,6 +111,10 @@ body, html {
     position: relative;
 }
 
+.day-number{
+    color: whitesmoke;
+}
+
 .close-btn {
     color: #aaa;
     float: right;
@@ -136,4 +141,112 @@ body, html {
 .day-number {
     z-index: 2;
 }
+
+
+/*TEST NIŻEJ*/
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --b1: #074A59;
+    --b2: #06313E;
+    --r1: #F24535;
+    --y1: #F2B544;
+    --w1: #ffffff;
+    --bcg: #f0faff;
+    /* --bcg: #ffffff; */
+  }
+
+
+
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    height: 80px;
+    padding-right: 50px;
+    padding-left: 50px;
+    border-bottom: 1px solid var(--b1);
+}
+
+.navbar a {
+    color: var(--b1);
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.navbar-left {
+    margin-right: auto;
+}
+
+.navbar-center {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.navbar-right {
+    margin-left: auto;
+}
+.navbar-center li {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-center li + li::before {
+    content: "|";
+    color: 06313E;
+    font-weight: 900;
+    margin: 20px 20px;
+}
+
+.navbar a:hover {
+    color: var(--y1);
+}
+
+#current
+{
+    color: var(--r1);
+}
+#current:hover
+{
+    color: var(--y1);
+}
+
+h1
+{
+    font-size: 60px;
+    color: var(--b1);
+    margin-bottom: 20px;
+}
+
+h2
+{
+    font-size: 44px;
+    color: var(--y1);
+}
+
+h3
+{
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--b1);
+}
+
+hr
+{
+    color: var(--b1);
+    background-color: var(--b1);
+    height: 3px;
+}
+
 

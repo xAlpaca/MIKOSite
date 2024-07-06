@@ -9,6 +9,24 @@
     <script defer src="{% static 'informacje.js' %}"></script>
 </head>
 <body>
+
+<header>
+    <nav class="navbar">
+        <div class="navbar-left">
+            <img src="{% static 'LOGO_HEADER.png' %}" alt="Logo" style="height: 80px;">
+        </div>
+        <ul class="navbar-center">
+            <li><a href="/">HOME</a></li>
+            <li><a id="current"   href="/kolomatematyczne">KOŁO MATEMATYCZNE</a></li>
+            <li><a href="/about">O NAS</a></li>
+            <li><a href="/bazahintow">BAZA ZADAŃ</a></li>
+        </ul>
+        <div class="navbar-right">
+            <a href="/profile">PROFIL</a>
+        </div>
+    </nav>
+</header>
+
 <div class="calendar">
     <div class="header">
         <button id="prevMonth">&lt;</button>
