@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="pl">
 
@@ -40,64 +41,53 @@
         <div class="row" style="margin: 60px 0;">
             <div class="column_left" style="width: 230px;margin-right: 60px;">
                 <div class="profile">
-                        <img src="{% static 'BLANK_PERSON.png' %}" alt="person" style="height: 100px; border-radius: 50px; margin-bottom: 20px;">
+                    <img src="{% static 'BLANK_PERSON.png' %}" alt="person"
+                        style="height: 100px; border-radius: 50px; margin-bottom: 20px;">
                     <h3 id="profile_name" style="color: white; text-align: center;">Nazwa profilu</h3>
                 </div>
             </div>
             <div class="column_right" style="width: -webkit-calc(100% - 290px);flex-wrap: wrap;text-wrap: wrap;">
-                
-                {% for post in posts %}
-                    <div class="post">
-                        <h2 id="post_title">{{ post.title }}</h2>
-                        <h3 id="post_subtitle" style="margin-bottom: 20px;">{{ post.subtitle }}</h3>
-                        <p><strong>Autor/autorzy:</strong>
-                            {% for author in post.authors.all %}
-                                <a href="/publicprofile/{{ author.username }}">{{ author.name }} {{ author.surname }}</a> {% if not forloop.last %}; {% endif %}
-                            {% endfor %}
-                        </p>
-                        <p><strong>Date:</strong> {{ post.date }}</p>
-                        <p><strong>Time:</strong> {{ post.time }}</p>
-                        <p id="post_content">{{ post.text_field_1 }}</p>
-                        <p>{{ post.text_field_2 }}</p>
-                        <p>
-                            <strong>File:</strong> 
-                            {% if post.file %}
-                                <a href="{{ post.file.url }}">Download</a>
-                            {% else %}
 
-                            {% endif %}
-                        </p>
-                        <div class="images">
-                            <strong>Images:</strong>
-                            {% for image in post.images.all %}
-                                <img src="/media/{{ image }}" alt="{{ image.alt_text }}">
-                            {% empty %}
-                                
-                            {% endfor %}
-                        </div>
+                {% for post in posts %}
+                <div class="post">
+                    <h2 id="post_title">{{ post.title }}</h2>
+                    <h3 id="post_subtitle" style="margin-bottom: 20px;">{{ post.subtitle }}</h3>
+                    <p><strong>Autor/autorzy:</strong>
+                        {% for author in post.authors.all %}
+                        <a href="/publicprofile/{{ author.username }}">{{ author.name }} {{ author.surname }}</a>
+                        {% if not forloop.last %}; {% endif %}
+                        {% endfor %}
+                    </p>
+                    <p><strong>Date:</strong> {{ post.date }}</p>
+                    <p><strong>Time:</strong> {{ post.time }}</p>
+                    <p id="post_content">{{ post.text_field_1 }}</p>
+                    <p>{{ post.text_field_2 }}</p>
+                    <p>
+                        <strong>File:</strong>
+                        {% if post.file %}
+                        <a href="{{ post.file.url }}">Download</a>
+                        {% else %}
+
+                        {% endif %}
+                    </p>
+                    <div class="images">
+                        <strong>Images:</strong>
+                        {% for image in post.images.all %}
+                        <img src="/media/{{ image }}" alt="{{ image.alt_text }}">
+                        {% empty %}
+
+                        {% endfor %}
                     </div>
+                </div>
                 {% empty %}
-                    <p>Brak postów.</p>
+                <p>Brak postów.</p>
                 {% endfor %}
 
             </div>
         </div>
     </section>
-    <footer id="footer">
-        <div id="footer-text">
-            <div class="row" style="margin: 30px 0; ">
-                <div class="column" style="margin-right: 60px;">
-                    <h3 style="padding-top: 10px; font-size: 24px; font-weight: 600;  color: #fff;">Contact Us</h3>
-                    <p>Email: info@example.com</p>
-                    <p>Phone: +1 234 567 890</p>
-                    <p style="padding-top: 10px;">2022 My Website. All rights reserved. </p>
-                </div>
-                <div class="column">
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. </p>
-                </div>
-            </div>
-        </div>
-    </footer>
+    {% include "footer.html" %}
+
 </body>
 
 </html>
