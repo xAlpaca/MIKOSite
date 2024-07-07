@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <script src="{% static 'script.js' %}"></script>
-</head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" /></head>
 
 <body>
     <header>
@@ -39,14 +39,18 @@
         <h1 style="margin-top: 50px;">Aktualności</h1>
         <hr>
         <div class="row" style="margin: 60px 0;">
-            <div class="column_left" style="width: 230px;margin-right: 60px;">
+            <div class="column_left" style="margin-right: 60px;">
                 <div class="profile">
-                    <img src="{% static 'BLANK_PERSON.png' %}" alt="person"
+                    <img src="{% static 'dsclogo.png' %}" alt="person"
                         style="height: 100px; border-radius: 50px; margin-bottom: 20px;">
-                    <h3 id="profile_name" style="color: white; text-align: center;">Nazwa profilu</h3>
+                    <a href="https://discord.gg/nA8CjrPqGM" style="text-decoration: none; cursor: pointer"><h3 id="profile_name" style="color: white; text-align: center;">Discord MIKO<span class="material-symbols-outlined">open_in_new</span></h3></a>
+                    <p style="word-break: break-word; color: white; font-size: 14px">Dołącz do społeczności Matematycznego Internetowego
+                        Koła Olimpijskiego na naszym serwerze Discrod!
+
+                    </p>
                 </div>
             </div>
-            <div class="column_right" style="width: -webkit-calc(100% - 290px);flex-wrap: wrap;text-wrap: wrap;">
+            <div class="column_right" style="width: -webkit-calc(100% - 320px);flex-wrap: wrap; word-break:break-word;">
 
                 {% for post in posts %}
                 <div class="post">
@@ -58,12 +62,12 @@
                         {% if not forloop.last %}; {% endif %}
                         {% endfor %}
                     </p>
-                    <p><strong>Date:</strong> {{ post.date }}</p>
-                    <p><strong>Time:</strong> {{ post.time }}</p>
+                    <p><strong>Data publikcaji:</strong> {{ post.date }}</p>
+                    <p><strong>Czas publikcaji:</strong> {{ post.time }}</p>
                     <p id="post_content">{{ post.text_field_1 }}</p>
-                    <p>{{ post.text_field_2 }}</p>
+                    <p id="post_content">{{ post.text_field_2 }}</p>
                     <p>
-                        <strong>File:</strong>
+                        <strong>Pliki:</strong>
                         {% if post.file %}
                         <a href="{{ post.file.url }}">Download</a>
                         {% else %}
@@ -71,7 +75,7 @@
                         {% endif %}
                     </p>
                     <div class="images">
-                        <strong>Images:</strong>
+                        <strong></strong>
                         {% for image in post.images.all %}
                         <img src="/media/{{ image }}" alt="{{ image.alt_text }}">
                         {% empty %}

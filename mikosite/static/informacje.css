@@ -43,14 +43,13 @@ body, html {
     /*gap: 1px;*/
 
     flex-grow: 1;
-    background-color: #f0b443;
+    background-color: #0d7d8a;
 }
 .days div {
-    margin: 2px;
-    border: 10px;
-    border-color: #0d7e8b;
+    border: 1px solid;
+    border-color: #053038;
     background-color: #f0b443;
-    border-radius: 5px ;
+    /*border-radius: 2px ;*/
     display: flex;
     justify-content: center;
     align-items: center;
@@ -59,14 +58,14 @@ body, html {
 
 .days div:hover {
     z-index: 99;
-    transition: ease-in, 0.3s;
+    transition: ease-in, 0.2s;
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);  /* Glowing effect */
 
 }
 
 .days .day-name {
     font-weight: bold;
-    background-color: #f0b443;
+    background-color: #074c5b;
     color: #ffffff;
 }
 .days .current-day {
@@ -78,16 +77,16 @@ body, html {
 #currentMonth{
     color: white;
 }
+
 .event-indicator {
     position: absolute;
-    top: 50%;
+    bottom: 5px;
     left: 50%;
-    width: 40px;
-    height: 40px;
-    background-color: rgba(20, 57, 253, 0.33);
+    width: 6px;
+    height: 6px;
+    background-color: #0d7e8b;
     border-radius: 50%;
-    transform: translate(-50%, -50%);
-
+    transform: translateX(-50%);
 }
 
 .event-popup {
@@ -254,3 +253,24 @@ hr
 }
 
 
+
+@media (max-width: 768px) {
+    .calendar {
+        width: 95%;
+    }
+
+    .navbar {
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+    }
+
+    .navbar-center {
+        flex-direction: column;
+        margin: 10px 0;
+    }
+
+    .navbar-center li + li::before {
+        display: none;
+    }
+}
