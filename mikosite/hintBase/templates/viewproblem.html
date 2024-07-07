@@ -60,18 +60,16 @@
 
             <div class="problem-title-box">
                 <div class="problem-main-details">
-                    <h2>Zadanie dodał/a:
-                        {% if proben.author != "" %}
-                            <a href="/publicprofile/{{ problem.author.username }}">{{ problem.author.username }} ({{ problem.author.name }} {{ problem.author.surname }})</a>
-                        {% endif %}</h2>
-                </div>
-                <div class="problem-main-details">
-                    <h2> Trudność: {{ problem.difficulty }}</h2>
-                    <h2> Trudność: {{ problem.difficulty }}</h2>
+
                 </div>
             </div>
         </div>
-        <div id='problem-content'> 
+        <div id='problem-content'>
+            <h2>Zadanie dodał/a:
+                {% if proben.author != "" %}
+                    <a href="/publicprofile/{{ problem.author.username }}" style="text-decoration: none; color: #074958; cursor: pointer">{{ problem.author.username }} ({{ problem.author.name }} {{ problem.author.surname }})</a>
+                {% endif %}
+            </h2>
             <h2>
                 Źródło: {{ problem.source }}<br>
                 Tagi:
@@ -95,7 +93,7 @@
             <div class="difficulty-rating">
                 <form method="post">
                     {% csrf_token %}
-                    <label for="difficulty">Oceń trudność zadania (1-10):</label>
+                    <label style="font-size: 20px" for="difficulty">Oceń trudność zadania (1-10):</label>
                     <select name="difficulty" id="difficulty">
                         {% for i in "123456789" %}
                             <option value="{{ i }}">{{ i }}</option>
@@ -104,12 +102,28 @@
                     </select>
                     <button type="submit">Wyślij</button>
                 </form>
-            </div>
-
             <!-- Display average rating -->
             <div class="average-rating">
-                <p>Średnia z ocen trudności tego zadania: <a href="#">{{ rating }}</a></p>
+
+                <p style="font-size: 16px;">
+                    Średnia z ocen trudności tego zadania:
+                    <a
+                       style="
+                       {% if rating < 5 %}
+                           color: green;
+                       {% elif rating < 8 %}
+                           color: #f04435;
+                       {% else %}
+                           color: #be00be;
+                       {% endif %}
+                       ">
+                       {{ rating }}
+                    </a>
+                </p>
             </div>
+        </div>
+
+
 
         </div>
         <div id="hints-container">
@@ -117,7 +131,7 @@
                 <h3>Rozwiązania ({{ hinty|length }})</h3>
                 <br>
                 {% if user.is_authenticated %}
-                    <h2><a href="./add_solution" style="text-decoration: none; color: #ff5540">Dodaj rozwiązanie</a></h2>
+                    <h2 style="text-align: center"><button><a href="./add_solution" style="text-decoration: none; color: #ff5540">Dodaj rozwiązanie</a></button></h2>
                 {% endif %}
             </div>
 
@@ -135,24 +149,20 @@
 
                 <div class="clue" id="latex-container"> Pełne rozwiązanie: <br><a class ="spoiler" style="display: block; width: 100%">{{ hintIntance.latex_solution }}</a> </div>
 
-                <div class="clue">Autor rozwiązania/(rozwiązanie dodał):{{ hintIntance.author.username }}</div>
+                <div style="font-size: 20px; font-weight: 400">Autor rozwiązania/(rozwiązanie dodał):{{ hintIntance.author.username }}</div>
             </div>
             <br>
             {% endfor %}
 
 
             {% if user.is_authenticated %}
-            <a href="./add_solution">Dodaj rozwiązanie</a>
-
                 {% if is_admin %}
-                <form method="post" enctype="multipart/form-data" onsubmit="return confirm('Jeśli jesteś adminem: Na pewno chcesz usunąc zadanie?');">
-                {% csrf_token %}
-               <!-- Przycisk usuwania zadania, trzeba go tak postawić, żeby wyglądał w miarę sensowanie (NA DOLE strony
-                )bo zadań w ogólności nie usuwamy, nawet jeśli użytkownik usunął konto-->
-                    <input type="hidden" name="delhandeler";value="delete">
-                <button type="submit" name="delete_problem">Usuń zadanie</button>
-                </form>
-            {% endif %}
+                    <form method="post" enctype="multipart/form-data" onsubmit="return confirm('Jeśli jesteś adminem: Na pewno chcesz usunąc zadanie?');">
+                        {% csrf_token %}
+                            <input type="hidden" name="delhandeler";value="delete">
+                        <button type="submit" name="delete_problem">Usuń zadanie</button>
+                    </form>
+                {% endif %}
             {% endif %}
 
         </div>

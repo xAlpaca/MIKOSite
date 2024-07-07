@@ -33,6 +33,7 @@
 
 
     <h1> Baza zadań</h1>
+    <p style="color: #949494; font-style: italic">Znajdziesz tutaj zadania z różnych olimpiad wraz z pełnymi rozwiązaniami oraz podpowiedziami. Zaczęcamy też do dodawania własnych zadań oraz rozwiązań!</p>
 
     <hr>
    <div class="search-container">
@@ -82,10 +83,8 @@
     {% for problem in all_problems %}
     <div class="problem-block">
         <h2>Zadanie {{ problem.problem_id }}</h2>
-        <p><strong>Tagi:</strong> 
-            {% for tag_name in problem.tags.names %}
-                <span>{{ tag_name }};</span>
-            {% endfor %}
+        <p><strong>Źródło:</strong>
+            <span>{{ problem.source }}</span>
         </p>
         
         <p><strong>trudność:</strong> {{ problem.difficulty }}</p>
@@ -94,12 +93,11 @@
             {{ problem.author.username }}
             {% endif %}
         </p>
-        
         <p>
             <strong>
                 Gatunek:</strong>
             {% for tag_name in problem.tags.names %}
-            <span>{{ tag_name }},</span>
+            <span>{{ tag_name }}{% if not forloop.last %},{% endif %}</span>
             {% endfor %}
         </p>
 
@@ -112,7 +110,7 @@
 
 </div>
 
-<footer id="footer">
+<footer class="footer" id="footer" style="">
     <div id="footer-text">
         <div class="row" style="margin: 30px 0; ">
             <div class="column" style="margin-right: 60px;">
@@ -146,6 +144,7 @@
         difficultyInput.value = selectedDifficulties.join(',');
     }
 });
+
 </script>
 </body>
 </html>

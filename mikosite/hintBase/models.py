@@ -11,8 +11,8 @@ class Problem(models.Model):
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     source = models.CharField(max_length=100, blank=True, null=True)
     image = models.ImageField(upload_to='problem_images/', blank=True, null=True)
-    difficulty = models.PositiveIntegerField(
-        validators=[MinValueValidator(1), MaxValueValidator(10)]
+    difficulty = models.FloatField(
+        validators=[MinValueValidator(1), MaxValueValidator(11)]
     )
     date = models.DateField(blank=True, null=True)
     time = models.TimeField(blank=True, null=True) 
@@ -53,7 +53,10 @@ class Review(models.Model):
             new_value += float(self.ratings[rating])
         new_value = round(new_value/amount, 2)
         self.current_rating = new_value
+        self.problem.difficulty = new_value
         self.save()
+        self.problem.save()
+
     def add_rating(self, key, value):
         if not isinstance(value, int):
             raise ValueError("Key must be a string and value must be an integer.")
