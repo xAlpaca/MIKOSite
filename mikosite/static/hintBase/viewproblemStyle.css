@@ -52,7 +52,7 @@
 
 .navbar-center li + li::before {
     content: "|";
-    color: 06313E;
+    color: #06313E;
     font-weight: 900;
     margin: 20px 20px; 
 }
@@ -126,14 +126,9 @@ body {
     display: flex;
     flex-wrap: wrap;
     padding: 0;
-    height: 100px;
-    
-align-content: bottom;
-
     margin-bottom: 20px;
     border-bottom: 1px solid var(--b2);
 }
-
 .problem-title-box {
     margin-bottom: 10px;
     width: 50%;
@@ -141,7 +136,7 @@ align-content: bottom;
 }
 
 .problem-title-box h1 {
-    font-size: 80px;
+    font-size: 50px;
 }
 
 
@@ -199,7 +194,7 @@ img {
 
 #hint-title h3 {
     font-weight: bold;
-    font-size: 45px;
+    font-size: 35px;
     margin-bottom: 10px;
 }
 
@@ -212,12 +207,12 @@ img {
 .solution h4 {
     margin: 0;
     color: #F2B544;
-    font-weight: 900;
-    font-size: 51px;
+    font-weight: 500;
+    font-size: 35px;
 }
 
 .clue {
-    font-size: 30px;
+    font-size: 40px;
     font-weight: 500;
 }
 .spoiler {
@@ -258,7 +253,7 @@ img {
 
 .difficulty-rating button {
     padding: 5px 10px;
-    background-color: #007bff;
+    background-color: #f04435;
     color: white;
     border: none;
     border-radius: 3px;
@@ -266,7 +261,8 @@ img {
 }
 
 .difficulty-rating button:hover {
-    background-color: #0056b3;
+    background-color: #c4463e;
+    transition: ease-in 0.2s;
 }
 
 .average-rating {
@@ -275,7 +271,6 @@ img {
 }
 
 .average-rating a {
-    color: #007bff;
     text-decoration: none;
     font-weight: bold;
 }

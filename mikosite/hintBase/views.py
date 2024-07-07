@@ -127,7 +127,7 @@ def addproblem(request):
             if similar_problems:
                 return render(request, 'addproblem.html', {
                     "tags": tags,
-                    "custom_message": "Możliwe, że to zadanie już jest w bazie zadań, sprawdź czy dalej chcesz dodać to zadanie.",
+                    "custom_message": "Możliwe, że to zadanie już jest w bazie zadań, sprawdź czy dalej chcesz dodać to zadanie. Pamiętaj o zaznaczeniu tagów zadania.",
                     "similar_problems": similar_problems,
                     "confirm_key": "True",
                     "problem": problem
