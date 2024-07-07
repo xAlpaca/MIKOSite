@@ -161,6 +161,7 @@ h2 {
     background-color: rgba(182, 182, 182, 0.37);
     border-radius: 5px;
     border: 1px solid #949494;
+    position: relative;
     padding: 10px;
     font-size: 20px;
     margin-top: 10px;
@@ -216,16 +217,42 @@ img {
     font-weight: 500;
 }
 .spoiler {
-  background: #333333;
+  background: #777777;
   border-radius: 0.2em;
   color: transparent;
+    display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
 }
 .spoiler:hover {
   background: transparent;
-  color: inherit;
+    color: inherit;
     transition: ease-in 0.2s;
+}
+.spoiler:hover + .spoiler-icon{
+    display: none;
+    transition: ease-in 0.1s;
+}
+.spoiler-text {
+  margin-right: 10px;
+}
+
+.spoiler-wrapper{
+    position: relative;
 
 }
+
+.spoiler-icon{
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform:translate(-50%, -50%) ;
+}
+
+
 
 
 .difficulty-rating {
