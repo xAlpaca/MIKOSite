@@ -40,10 +40,10 @@
             </div>
             <ul class="navbar-center">
                 <li><a href="/">HOME</a></li>
-                <li><a href="/kolomatematyczne">KOŁO MATEMATYCZNE</a></li>
-                <li><a href="/about">O NAS</a></li>
+                <li><a id="current"   href="/bazahintow">BAZA ZADAŃ</a></li>
                 <li><a href="/bazahintow/addproblem">DODAJ ZADANIE</a></li>
-                <li><a href="/bazahintow">BAZA ZADAŃ</a></li>
+                <li><a href="/kolomatematyczne">KALENDARZ</a></li>
+                <li><a href="/about">O NAS</a></li>
             </ul>
             <div class="navbar-right">
                 <a href="/profile">PROFIL</a>
@@ -52,31 +52,39 @@
     </header>
 
     <div id="container">
-        <div id="title">
-            <div class="problem-title-box">
-                <h1>Zadanie {{ problem.problem_id }}</h1>
+        <div class="row">
+            <div class="column" style="margin-right: 60px;">                
+                <div id="title">
+                    <div class="problem-title-box">
+                        <h1>Zadanie {{ problem.problem_id }}</h1>
 
-            </div>
+                    </div>
 
-            <div class="problem-title-box">
-                <div class="problem-main-details">
+                    <div class="problem-title-box">
+                        <div class="problem-main-details">
 
+                        </div>
+                    </div>
                 </div>
+            </div>
+            <div class="column" >
+
+                <h2>Zadanie dodał/a:
+                    {% if proben.author != "" %}
+                        <a href="/publicprofile/{{ problem.author.username }}" style="text-decoration: none; color: #F2B544; cursor: pointer">{{ problem.author.username }} ({{ problem.author.name }} {{ problem.author.surname }})</a>
+                    {% endif %}
+                </h2>
+                <h2>
+                    Źródło: {{ problem.source }}<br>
+                    Tagi:
+                    {% for tag_name in problem.tags.names %}
+                    <span>{{ tag_name }},</span>
+                    {% endfor %}
+                </h2>
             </div>
         </div>
         <div id='problem-content'>
-            <h2>Zadanie dodał/a:
-                {% if proben.author != "" %}
-                    <a href="/publicprofile/{{ problem.author.username }}" style="text-decoration: none; color: #074958; cursor: pointer">{{ problem.author.username }} ({{ problem.author.name }} {{ problem.author.surname }})</a>
-                {% endif %}
-            </h2>
-            <h2>
-                Źródło: {{ problem.source }}<br>
-                Tagi:
-                {% for tag_name in problem.tags.names %}
-                <span>{{ tag_name }},</span>
-                {% endfor %}
-            </h2>
+            
             <h2>
                 {% if problem.image %}
             </h2>
@@ -86,7 +94,7 @@
             <hr style="
             color: var(--b1);
             background-color: var(--b1);
-            height: 1px; width: 100%; border: 0; margin-top: 40px; ">
+            height: 1px; width: 100%; border: 0;">
             <div id="latex-container">
                 {{ problem.latex_code }}
             </div>
@@ -126,6 +134,8 @@
 
 
         </div>
+
+        
         <div id="hints-container">
             <div id="hint-title">
                 <h3>Rozwiązania ({{ hinty|length }})</h3>

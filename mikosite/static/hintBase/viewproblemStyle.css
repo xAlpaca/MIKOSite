@@ -102,13 +102,32 @@ body {
     padding-top: 10px;
 }
 
+hr {
+    color: var(--b1);
+    background-color: var(--b1);
+    height: 1px;
+  }
+
 .column
 {
     float: left;
     width: -webkit-calc(50% - 30px);
     flex-wrap: wrap;
     text-wrap: wrap;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.row
+{
+    align-items: flex-end;
+
+    display: flex;
 }
 
 @media screen and (max-width: 1500px) {
@@ -126,11 +145,8 @@ body {
     display: flex;
     flex-wrap: wrap;
     padding: 0;
-    margin-bottom: 20px;
-    border-bottom: 1px solid var(--b2);
 }
 .problem-title-box {
-    margin-bottom: 10px;
     width: 50%;
     height: 100%;
 }
@@ -150,7 +166,7 @@ body {
 }
 
 h2 {
-    color: var(--y1);
+    color: var(--b1);
     font-weight: 500;
     margin-bottom: 0;
     margin-top: 0;
@@ -158,14 +174,12 @@ h2 {
 
 
 #latex-container {
-    background-color: rgba(182, 182, 182, 0.37);
-    border-radius: 5px;
-    border: 1px solid #949494;
     position: relative;
-    padding: 10px;
     font-size: 20px;
     margin-top: 10px;
     color: #06313E;
+    margin-bottom: 60px;
+    margin-top: 40px;
 }
 
 img {
