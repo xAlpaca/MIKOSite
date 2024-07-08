@@ -13,10 +13,7 @@
   --w1: #ffffff;
 }
 
-body {
-  font-family: "Rubik", sans-serif;
-  font-optical-sizing: auto;
-}
+
 
 .navbar {
   display: flex;
@@ -51,14 +48,18 @@ body {
 .navbar-center li {
   display: flex;
   align-items: center;
-  margin: 5px;
 }
 
 .navbar-center li + li::before {
   content: "|";
   color: #06313E;
   font-weight: 900;
-  margin: 0 10px;
+  margin: 0 15px;
+}
+
+body {
+  font-family: "Rubik", sans-serif;
+  font-optical-sizing: auto;
 }
 
 .navbar a:hover {
