@@ -54,14 +54,14 @@ body {
 .navbar-center li {
     display: flex;
     align-items: center;
-}
-
-.navbar-center li + li::before {
+  }
+  
+  .navbar-center li + li::before {
     content: "|";
-    color: 06313E;
+    color: #06313E;
     font-weight: 900;
-    margin: 20px 20px; 
-}
+    margin: 0 15px;
+  }
 
 .navbar a:hover {
     color: var(--y1);

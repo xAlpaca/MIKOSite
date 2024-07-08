@@ -10,6 +10,7 @@
     --r1: #F24535;
     --y1: #F2B544;
     --w1: #ffffff;
+    --bcg: #f0faff;
 }
 
 body {
@@ -53,14 +54,14 @@ body {
 .navbar-center li {
     display: flex;
     align-items: center;
-}
-
-.navbar-center li + li::before {
+  }
+  
+  .navbar-center li + li::before {
     content: "|";
-    color: 06313E;
+    color: #06313E;
     font-weight: 900;
-    margin: 20px 20px; 
-}
+    margin: 0 15px;
+  }
 
 .navbar a:hover {
     color: var(--y1);
@@ -170,24 +171,29 @@ h1
     color: var(--b1);
 }
 
+h2 {
+    font-size: 28px;
+    color: var(--y1);
+    margin-bottom: 15px;
+}
+
 
 hr
 {
     color: var(--b1);
     background-color: var(--b1);
     height: 3px;
-    margin-bottom: 60px;
+    margin-bottom: 30px;
 }
 
 
 /*search*/
 .search-container {
-    background-color: #f0f0f0;
-    border-radius: 8px;
+    border-radius: 20px;
+    border: 1px solid var(--b1);
     padding: 20px;
     max-width: 800px;
     margin: 20px auto;
-    font-family: Arial, sans-serif;
 }
 
 /*h2 {*/
@@ -215,10 +221,15 @@ label {
 
 select, input[type="text"] {
     width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    height: 40px;
+    padding: 15px;
+    border-bottom: 1px solid var(--b1);
+    border-top: 0px;
+    border-right: 0px;
+    border-left: 0px;
+    border-radius: 5px;
     box-sizing: border-box;
+    background-color: var(--bcg);
 }
 
 select[multiple] {
@@ -232,11 +243,13 @@ select[multiple] {
 }
 
 .difficulty-btn {
-    padding: 5px 10px;
-    background-color: #e0e0e0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: 5px;
+    color: var(--b1);
+    background-color: white;
+    border: 1px solid var(--b1);
+    border-radius: 10px;
     cursor: pointer;
+    width: 32px;
 }
 
 .difficulty-btn.active {
@@ -254,16 +267,18 @@ select[multiple] {
 }
 
 input[type="submit"] {
-    background-color: #005a6e;
+    background-color: var(--r1);
     color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 50px;
     width: 100%;
+    border: 2px solid var(--r1);
 }
 
 input[type="submit"]:hover {
-    background-color: #003f4d;
+    background-color: white;
+    color: var(--r1);
+    border: 2px solid var(--r1);
 }

@@ -6,18 +6,13 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: "Rubik", sans-serif;
-    font-optical-sizing: auto;
-}
-
 :root {
     --b1: #074A59;
     --b2: #06313E;
     --r1: #F24535;
     --y1: #F2B544;
-    --w1: #ffffff;
-  }
+    --w1: #ffffff;    
+}
 
 .navbar {
     display: flex;
@@ -52,17 +47,23 @@ body {
 .navbar-right {
     margin-left: auto; 
 }
+body {
+    font-family: "Rubik", sans-serif;
+    font-optical-sizing: auto;
+}
+
 .navbar-center li {
     display: flex;
     align-items: center;
-}
-
-.navbar-center li + li::before {
+  }
+  
+  .navbar-center li + li::before {
     content: "|";
-    color: 06313E;
+    color: #06313E;
     font-weight: 900;
-    margin: 20px 20px; 
-}
+    margin: 0 15px;
+  }
+  
 
 .navbar a:hover {
     color: var(--y1);

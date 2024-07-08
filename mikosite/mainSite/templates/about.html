@@ -15,11 +15,11 @@
                 <img src="{% static 'LOGO_HEADER.png' %}" alt="Logo" style="height: 80px;">
             </div>
             <ul class="navbar-center">
-                <li><a href="/">HOME</a></li>
+                <li><a id="current"   href="/">HOME</a></li>
                 <li><a href="/bazahintow">BAZA ZADAŃ</a></li>
                 <li><a href="/bazahintow/addproblem">DODAJ ZADANIE</a></li>
-                <li><a href="/kolomatematyczne">KALENDARZ</a></li>
-                <li><a id="current"   href="/about">O NAS</a></li>
+                <li><a href="/kolomatematyczne">KOŁO MATEMATYCZNE</a></li>
+                <li><a href="/about">O NAS</a></li>
             </ul>
             <div class="navbar-right">
                 <a href="/profile">PROFIL</a>
@@ -30,22 +30,7 @@
     <h2>About Us</h2>
     <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
 </section>
-
-<footer id="footer">
-    <div id="footer-text">
-        <div class="row" style="margin: 30px 0; ">
-            <div class="column" style="margin-right: 60px;">
-                <h3 style="padding-top: 10px; font-size: 24px; font-weight: 600;  color: #fff;">Contact Us</h3>
-                <p>Email: info@example.com</p>
-                <p>Phone: +1 234 567 890</p>
-                <p style="padding-top: 10px;">2022 My Website. All rights reserved. </p>
-            </div>
-            <div class="column">
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. </p>
-            </div>
-        </div>
-    </div>
-</footer>
+{% include "footer.html" %}
 
 </body>
 </html>

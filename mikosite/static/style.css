@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  word-break: break-word;
+  
 }
 
 :root {
@@ -13,7 +13,11 @@
   --w1: #ffffff;
 }
 
-
+.body
+{  
+  font-family: "Rubik", sans-serif;
+  font-optical-sizing: auto;
+}
 
 .navbar {
   display: flex;
@@ -30,12 +34,6 @@
   text-decoration: none;
   font-size: 18px;
   font-weight: bold;
-}
-
-.navbar-left,
-.navbar-center,
-.navbar-right {
-  margin: 10px 0;
 }
 
 .navbar-center {
@@ -55,11 +53,6 @@
   color: #06313E;
   font-weight: 900;
   margin: 0 15px;
-}
-
-body {
-  font-family: "Rubik", sans-serif;
-  font-optical-sizing: auto;
 }
 
 .navbar a:hover {

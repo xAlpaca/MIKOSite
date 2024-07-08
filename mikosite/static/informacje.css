@@ -9,16 +9,13 @@ body, html {
 .calendar {
     display: flex;
     flex-direction: column;
-    height: 70%;
+    height: auto;
     width: 70%;
-    background-color: #f0f0f0;
     top: 100px;
     margin: auto;
     position: relative;
 }
 .header {
-    background-color: #0d7e8b;
-    color: white;
     padding: 20px;
     text-align: center;
     display: flex;
@@ -28,12 +25,13 @@ body, html {
 .header button {
     background-color: transparent;
     border: none;
-    color: white;
+    color: var(--b1);
     font-size: 24px;
     cursor: pointer;
 }
 .header h2 {
     font-size: 28px;
+    color: var(--b1);
     margin: 0;
 }
 .days {
@@ -43,39 +41,44 @@ body, html {
     /*gap: 1px;*/
 
     flex-grow: 1;
-    background-color: #0d7d8a;
 }
 .days div {
-    border: 1px solid;
-    border-color: #053038;
-    background-color: #f0b443;
-    /*border-radius: 2px ;*/
     display: flex;
+    height: 70px;
     justify-content: center;
     align-items: center;
     font-size: 18px;
+    margin: 10px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 
-.days div:hover {
-    z-index: 99;
-    transition: ease-in, 0.2s;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);  /* Glowing effect */
-
+.day-nuberw:hover {
+    border: 3px solid var(--b1);
+    margin: 7px;
+    border-radius: 20px;
 }
 
 .days .day-name {
     font-weight: bold;
-    background-color: #074c5b;
+    background-color: var(--b1);
     color: #ffffff;
+    margin: 0px;
 }
+
 .days .current-day {
-    background-color: #f04435;
+    border: 3px solid var(--r1);
+    margin: 7px;
+    border-radius: 20px;
+}
+.days .current-day:hover{
+    border: 5px solid var(--r1);
+    margin: 5px;
+    border-radius: 20px;
 }
 .event-day {
     position: relative;
-}
-#currentMonth{
-    color: white;
 }
 
 .event-indicator {
@@ -84,7 +87,7 @@ body, html {
     left: 50%;
     width: 6px;
     height: 6px;
-    background-color: #0d7e8b;
+    background-color: var(--b1);
     border-radius: 50%;
     transform: translateX(-50%);
 }
@@ -143,6 +146,7 @@ body, html {
 
 .day-number {
     z-index: 2;
+    color: var(--b1);
 }
 
 
@@ -209,7 +213,7 @@ body, html {
     content: "|";
     color: 06313E;
     font-weight: 900;
-    margin: 20px 20px;
+    margin: 0 15px;
 }
 
 .navbar a:hover {
