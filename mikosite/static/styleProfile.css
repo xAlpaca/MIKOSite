@@ -13,6 +13,10 @@
     --bcg: #f0faff;
     /* --bcg: #ffffff; */
   }
+  body {
+    font-family: "Rubik", sans-serif;
+    font-optical-sizing: auto;
+}
 
 .navbar {
     display: flex;
@@ -100,12 +104,13 @@ hr
 }
 
 .container {
-    width: 500px;
+    width: 600px;
     margin: 0 auto;
     border: 1px solid var(--b1);
     border-radius: 20px;
-    padding: 30px;
+    padding: 20px 30px;
     margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 @media screen and (max-width: 600px) {

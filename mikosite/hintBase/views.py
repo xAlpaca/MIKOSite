@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from django.contrib import messages
 from accounts.models import User
 from django.shortcuts import redirect, get_object_or_404
@@ -6,12 +6,13 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from django.conf import settings
-from .models import Problem, ProblemHint
+from .models import Problem, ProblemHint, Review
 from taggit.models import Tag
 from fuzzywuzzy import fuzz
 from datetime import datetime
 from pytz import timezone
 import pytz
+from django.db.models import Q
 
 
 # Create your views here.
@@ -30,28 +31,31 @@ def index(request):
     
     if request.method == 'POST':
         tags_to_filter = set(request.POST.getlist('tags_to_filter'))
-        max_difficulty = int(request.POST.get('difficulty_max'))
-        min_difficulty = int(request.POST.get('difficulty_min'))
-        
-        # Validate difficulty range
-        if max_difficulty < min_difficulty:
-            return render(request, 'index1.html', {
-                "all_problems": all_problems, 
-                "user_belongs_to_moderator_group": user_belongs_to_moderator_group, 
-                "tags": tags
-            })
-        
-        # Filter problems by difficulty and tags
-        filtered_problems = Problem.objects.filter(difficulty__gte=min_difficulty, difficulty__lte=max_difficulty)
+        diffStr = str(request.POST.get('difficulty'))
+        search = str(request.POST.get("search"))
+        print(search)
+        if len(diffStr) != 0:
+            ranges = [int(x) for x in diffStr.split(',')]
+            query = Q()
+
+            for value in ranges:
+                query |= Q(difficulty__gte=value, difficulty__lt=value + 1)
+            filtered_problems = reversed(Problem.objects.filter(query))
+        else:
+            filtered_problems = all_problems
         if tags_to_filter:
             filtered_problems = [
                 problem for problem in filtered_problems
                 if tags_to_filter.issubset(set(problem.tags.names()))
             ]
+        if search != "":
+            filtered_problems = [
+                problem for problem in filtered_problems
+                if search in problem.latex_code
+            ]
 
-        
         return render(request, 'index1.html', {
-            "all_problems": filtered_problems, 
+            "all_problems": filtered_problems,
             "user_belongs_to_moderator_group": user_belongs_to_moderator_group, 
             "tags": tags
         })
@@ -123,7 +127,7 @@ def addproblem(request):
             if similar_problems:
                 return render(request, 'addproblem.html', {
                     "tags": tags,
-                    "custom_message": "Możliwe, że to zadanie już jest w bazie zadań, sprawdź czy dalej chcesz dodać to zadanie.",
+                    "custom_message": "Możliwe, że to zadanie już jest w bazie zadań, sprawdź czy dalej chcesz dodać to zadanie. Pamiętaj o zaznaczeniu tagów zadania.",
                     "similar_problems": similar_problems,
                     "confirm_key": "True",
                     "problem": problem
@@ -139,6 +143,9 @@ def addproblem(request):
         problem.save()
         problem.tags.add(*selected_tags)
         problem.save()
+
+        request.user.problem_counter += 1
+        request.user.save()
 
         return render(request, 'addproblem.html', {
             "custom_message": f"Zadanie zostało dodane, id zadania: {problem.problem_id}",
@@ -156,11 +163,34 @@ def addproblem(request):
 def view_problem(request, problem_id):
     problem = get_object_or_404(Problem, problem_id=problem_id)
     hinty = ProblemHint.objects.filter(problem=problem, verified=True)
+    try:
+        reviews = Review.objects.get(problem=problem,)
+    except:
+        reviews = Review(current_rating=problem.difficulty, problem=problem)
+        reviews.save()
+
+    is_admin = request.user.is_superuser
+
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            if request.POST.get("delhandeler") == "delete":
+                if is_admin==True:
+                    problem.delete()
+                    return redirect("/bazahintow/")
+            else:
+                try:
+                    proposed = int(request.POST.get("difficulty"))
+                except:
+                    return HttpResponse("Difficuty must be an integer")
+                reviews.add_rating(request.user.username, proposed)
+                reviews.update_rating()
 
     return render(request, 'viewproblem.html', {
         "problem": problem,
         "user": request.user,
-        "hinty": hinty
+        "hinty": hinty,
+        "is_admin": is_admin,
+        "rating": reviews.current_rating
     })
 
 
@@ -204,7 +234,8 @@ def verifysolutions(request):
     if not request.user.groups.filter(name='Moderator').exists():
         return redirect("/")
 
-   
+
+
     if request.method == 'POST':
         if 'delete_solution' in request.POST:
             hint_to_delete = ProblemHint.objects.get(hintId=request.POST['delete_solution'])

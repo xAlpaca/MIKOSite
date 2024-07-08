@@ -16,9 +16,9 @@
             </div>
             <ul class="navbar-center">
                 <li><a href="/">HOME</a></li>
-                <li><a href="/bazahintow">BAZA ZADAŃ</a></li>
-                <li><a href="/bazahintow/addproblem">DODAJ ZADANIE</a></li>
+                <li><a href="/kolomatematyczne">KOŁO MATEMATYCZNE</a></li>
                 <li><a href="/about">O NAS</a></li>
+                <li><a href="/bazahintow">BAZA ZADAŃ</a></li>
             </ul>
             <div class="navbar-right">
                 <a id="current"  href="/profile">PROFIL</a>
@@ -83,12 +83,13 @@
                        min="1900-01-01">
             </div>
             <div class="field">
-                <label for="problem_counter">Utworzone zadania</label>
+                <label for="problem_counter">Dodane zadania</label>
                 <span id="problem_counter">{{ user.problem_counter }}</span>
             </div>
             <div id="buttons">
                 <a href="/signout/"><button type="button">Wyloguj</button></a> 
                 <a href="/change_password/"><button type="button">Zmień hasło</button></a>
+                <a href="../publicprofile/{{ user.username }}"><button type="button">Zobacz swoje zadania i rozwiązania</button></a>
                 <button type="submit">Zapisz</button>
             </div>     
 

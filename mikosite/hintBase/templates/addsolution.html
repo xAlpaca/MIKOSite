@@ -20,31 +20,68 @@
 </head>
 <body>
 
-    <h1>Add Problem Hint</h1>
+
+    <header>
+        <nav class="navbar">
+            <div class="navbar-left">
+                <img src="{% static 'LOGO_HEADER.png' %}" alt="Logo" style="height: 80px;">
+            </div>
+            <ul class="navbar-center">
+                <li><a href="/">HOME</a></li>
+                <li><a href="/bazahintow">BAZA ZADAŃ</a></li>
+                <li><a href="/bazahintow/addproblem">DODAJ ZADANIE</a></li>
+                <li><a href="/about">O NAS</a></li>
+            </ul>
+            <div class="navbar-right">
+                <a id="current"  href="/profile">PROFIL</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <h1>Dodaj rozwiązanie</h1>
+        <hr>
+        
+        <form action="./" method="post" enctype="multipart/form-data">
+            {% csrf_token %}        
+            <label id="preview" style="font-weight: normal">{{ problem.latex_code}}</label>
+            <br><br>
     
+            <h2 for="hints">Podpowiedzi</h2>
+            <div class="form-field">
+                <h3 for="hint1" style="margin-top: 15px;">Podpowiedź 1</h3>
+                <input type="text" id="hint1" name="hint1">
+                <label id="compiled1" style="font-weight: normal;"></label>
     
-    <form action="./" method="post" enctype="multipart/form-data">
-        {% csrf_token %}        
-        <label id="preview" style="font-weight: normal">{{ problem.latex_code}}</label>
-        <br><br>
+            </div>
+            <div id="additional-hints"></div>
+            <button type="button" id="add-hint-button">Dodaj podpowiedź</button>
+            <div class="form-field" id="solution">
+                <h2 for="solution">Rozwiązanie</h2>
+                <textarea id="solution" name="solution" rows="4" ></textarea>
+            </div>
+            <label id="solutioncompiled" style="font-weight: normal"></label>
+            <br>
+            <input type="submit" value="Dodaj rozwiązanie">
+    
+        </form>
 
-        <label for="hints">Hints:</label><br>
-        <div class="form-field">
-            <label for="hint1">Hint 1:</label>
-            <input type="text" id="hint1" name="hint1">
-            <label id="compiled1" style="font-weight: normal"></label>
-
+    </div>
+    <footer id="footer">
+        <div id="footer-text">
+            <div class="row" style="margin: 30px 0; ">
+                <div class="column" style="margin-right: 60px;">
+                    <h3 style="padding-top: 10px; font-size: 24px; font-weight: 600;  color: #fff;">Contact Us</h3>
+                    <p>Email: info@example.com</p>
+                    <p>Phone: +1 234 567 890</p>
+                    <p style="padding-top: 10px;">2022 My Website. All rights reserved. </p>
+                </div>
+                <div class="column">
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. </p>
+                </div>
+            </div>
         </div>
-        <div id="additional-hints"></div>
-        <button type="button" id="add-hint-button">Add Hint</button>
-        <div class="form-field" id="solution">
-            <label for="solution">Solution:</label>
-            <textarea id="solution" name="solution" rows="4"></textarea>
-        </div>
-        <label id="solutioncompiled" style="font-weight: normal"></label>
-        <br>
-        <input type="submit" value="Dodaj rozwiązanie">
-
-    </form>
+    </footer>
 </body>
 </html>

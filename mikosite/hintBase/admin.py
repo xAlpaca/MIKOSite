@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Problem, ProblemHint
+from .models import Problem, ProblemHint, Review
 # Register your models here.
 
 
@@ -10,3 +10,4 @@ class ProblemAdmin(admin.ModelAdmin):
     def get_tags(self, obj):
         return ",".join(o for o in obj.tags.names())
 admin.site.register(ProblemHint)
+admin.site.register(Review)

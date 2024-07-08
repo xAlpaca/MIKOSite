@@ -31,3 +31,17 @@ document.getElementById("difficulty_min").addEventListener("input", function() {
 document.getElementById("difficulty_max").addEventListener("input", function() {
     updateDifficultyDisplay("difficulty_max", "difficulty_max_display");
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const difficultyButtons = document.querySelectorAll('.difficulty-btn');
+    const difficultyInput = document.getElementById('difficulty');
+
+    difficultyButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            difficultyButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            console.log("dasdasad")
+            difficultyInput.value = this.dataset.value;
+        });
+    });
+});
