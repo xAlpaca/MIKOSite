@@ -67,10 +67,13 @@ dmypy.json
 __pycache__/
 
 # Django stuff:
+# Django stuff:
 *.log
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
+mikosite/db.sqlite3
+
 
 # Flask stuff:
 instance/
@@ -108,6 +111,7 @@ venv.bak/
 
 # Rope project settings
 .ropeproject
+
 
 # mkdocs documentation
 /site
