@@ -14,6 +14,7 @@ body, html {
     top: 100px;
     margin: auto;
     position: relative;
+    border: 1px solid black;
 }
 .header {
     padding: 20px;
@@ -39,7 +40,6 @@ body, html {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     /*gap: 1px;*/
-
     flex-grow: 1;
 }
 .days div {
@@ -85,8 +85,8 @@ body, html {
     position: absolute;
     bottom: 5px;
     left: 50%;
-    width: 6px;
-    height: 6px;
+    width: 10px;
+    height: 10px;
     background-color: var(--b1);
     border-radius: 50%;
     transform: translateX(-50%);
